@@ -1,0 +1,28 @@
+.schemeInfo{
+    width:60vw;
+    height:max-content;
+    padding:3rem;
+    text-align:"center";
+    border-radius:3rem !important;
+    transition: all 0.2s ease-in-out 0s !important;
+}
+
+.schemeInfo:hover{
+    border:2px solid orange;
+    transform: scale(1.01);
+}
+
+.info{
+    text-align: center;
+    line-height: center;
+    width: 100%;
+    height: max-content;
+    font-weight: 600;
+}
+
+.infoHeader{
+    width: 100%;
+    height: max-content;
+    margin-bottom: 10px;
+   
+}

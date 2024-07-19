@@ -1,0 +1,21 @@
+.label{
+    font-size: large;
+    margin : 0px 5px 0px 0px;
+    font-weight: 700;
+    margin:3rem;
+}
+
+.form{
+    width:max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.form-elements{
+    margin: 2rem;
+    text-align: center;
+}

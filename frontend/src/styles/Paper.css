@@ -1,0 +1,7 @@
+.paper{
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.paper:hover{
+    transform: scale(1.02);
+}
