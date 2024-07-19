@@ -76,7 +76,7 @@ const ApplicationDetails: FC = () => {
             <Button
               variant="contained"
               style={{ marginTop: "1rem" }}
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/schemes/applications")}
             >
               Back
             </Button>

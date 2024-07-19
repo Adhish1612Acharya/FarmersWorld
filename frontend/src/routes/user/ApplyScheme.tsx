@@ -42,7 +42,7 @@ const ApplyScheme: FC = () => {
           <>
             <NavBar login={navLogin} admin={false} homePage={false} />
             <h1>Application for : {scheme ? scheme.heading : null}</h1>
-            <Application schemeId={schemeId} />
+            <Application schemeId={schemeId} navigate={navigate} />
           </>
         ) : (
           <CircularProgress />

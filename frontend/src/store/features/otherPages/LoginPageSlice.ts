@@ -108,7 +108,6 @@ export const LoginPageSlice = createSlice({
       state,
       action: PayloadAction<{
         loginData: valueObj;
-        error: errorObj;
       }>
     ) => {
       const regex = /^[^\s]+$/;

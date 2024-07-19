@@ -40,7 +40,7 @@ const SignUpForm: FC<signUpFormProps> = ({ route }) => {
     apiRoute: string
   ): Promise<void> => {
     event.preventDefault();
-    dispatch(validateForm({ loginData: value, error: error }));
+    dispatch(validateForm({ loginData: value }));
 
     dispatch(signUp({ apiRoute, value, navigate }));
   };

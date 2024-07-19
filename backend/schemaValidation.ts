@@ -3,7 +3,6 @@ let Joi = require("joi");
 export const applicationSchema = Joi.object({
   adhaar: Joi.number().required(),
   farmersId: Joi.number().required(),
-  image: Joi.string().required(),
 });
 
 export const signUpFormValidation = Joi.object({

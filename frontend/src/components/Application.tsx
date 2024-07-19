@@ -13,94 +13,46 @@ import {
   value,
   imageErrors,
 } from "../types/componentsTypes/Application";
-import theme from "../theme"; //demo
+import theme from "../theme";
+import { useAppDispatch, useAppSelector } from "../store/store";
+import {
+  applyScheme,
+  setInputData,
+  validation,
+} from "../store/features/component/ApplicationSlice";
 
-const Application: FC<ApplicationProps> = ({ schemeId }) => {
-  let navigate = useNavigate();
-
-  let [value, setValue] = useState<value>({
-    adhaar: "",
-    farmersId: "",
-    image: "",
-  });
-
-  let [image, setImage] = useState<File | null>(null);
-
-  let [errors, setErrors] = useState<newError>({
-    adhaar: { errMsg: "", valid: false },
-    farmersId: { errMsg: "", valid: false },
-  });
-
-  let [imageErrors, setImageErrors] = useState<imageErrors>({
-    errMsg: "",
-    valid: false,
-  });
+const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
+  const dispatch = useAppDispatch();
+  let value = useAppSelector((state) => state.application.value);
+  let errors = useAppSelector((state) => state.application.errors);
+  let [imageFile, setImageFile] = useState<File | "">("");
+  let imagePreview = useAppSelector((state) => state.application.imagePreview);
 
   let setFormData = (event: ChangeEvent<HTMLInputElement>): void => {
-    setErrors((prevErr) => {
-      return { ...prevErr, [event.target.name]: { errMsg: "", valid: false } };
-    });
-
-    setValue((prevData) => {
-      return { ...prevData, [event.target.name]: event.target.value };
-    });
-  };
-
-  let setImageData = (event: ChangeEvent<HTMLInputElement>): void => {
-    setImageErrors({ errMsg: "", valid: false });
-    if (event.target.files && event.target.files.length > 0) {
-      setImage(event.target.files[0]);
+    if (event.target.type === "file") {
+      const file =
+        event.target.files && event.target.files.length > 0
+          ? event.target.files[0]
+          : "";
+      setImageFile(file);
+      const imageValue =
+        event.target.files && event.target.files.length > 0
+          ? event.target.files[0].name
+          : "";
+      dispatch(setInputData({ name: event.target.name, value: imageValue }));
+    } else {
+      dispatch(
+        setInputData({ name: event.target.name, value: event.target.value })
+      );
     }
-  };
-
-  let validation = (newError: newError): void => {
-    setErrors((prevErr) => {
-      return { ...prevErr, newError };
-    });
   };
 
   let preventFormDefault = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-    let newErrors = validateForm(value, errors);
-    validation(newErrors);
-    const data = new FormData();
-    if (image) {
-      data.append("file", image);
-    }
-    data.append("upload_preset", "fu6t0ggw");
-    let resu = await axios
-      .post("https://api.cloudinary.com/v1_1/daawurvug/image/upload", data)
-      .then((data) => {
-        return data;
-      })
-      .catch((err) => {
-        if (err.response.status === 400) {
-          setImageErrors({ errMsg: "Please enter the image", valid: true });
-        }
-      });
-
-    if (resu) {
-      value.image = `${resu.data?.secure_url}`;
-    }
-
-    let res = await axios.post(`/api/schemes/${schemeId}/apply`, value);
-    if (res.data === "notLogin") {
-      toast.warn("You must be Logged in");
-      navigate("/login");
-    } else if (res.data.role === "notFarmer") {
-      toast.error("Access denied");
-      navigate(`/admin`);
-    } else if (res.data === "alreadyApplied") {
-      toast.warn(
-        "You have already applied and the Application is under processing"
-      );
-      navigate(`/schemes/${schemeId}`);
-    } else if (res.data === "applied") {
-      toast.success("Applied successfully");
-      navigate("/");
-    }
+    dispatch(validation({ data: value }));
+    dispatch(applyScheme({ imageFile, id: schemeId, navigate }));
   };
 
   return (
@@ -128,18 +80,20 @@ const Application: FC<ApplicationProps> = ({ schemeId }) => {
             typeValue={"number"}
             value={value.farmersId}
             name="farmersId"
-            labelText={"Enter Unique farmers Id required"}
+            labelText={"Enter Unique farmers Id"}
             outerLabel={"Unique Framers Id"}
             setForm={setFormData}
             errors={errors.farmersId}
           />
 
+          {imagePreview !== undefined ? <img src={imagePreview} /> : ""}
+
           <TextInput
             typeValue={"file"}
             name="image"
             outerLabel={"Enter passport size image"}
-            setForm={setImageData}
-            errors={imageErrors}
+            setForm={setFormData}
+            errors={errors.image}
           />
 
           <Button type="submit" variant="contained" color="success">

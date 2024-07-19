@@ -12,6 +12,7 @@ import adminApplicationDetailReducer from "./features/admin/ApplicationDetailSli
 import LoginPageSliceReducer from "./features/otherPages/LoginPageSlice";
 import SignUpPageSliceReducer from "./features/otherPages/SignUpPageSlice";
 import ErrorPageSliceReducer from "./features/otherPages/ErrorPageSlice";
+import SchemeApplyReducer from "./features/component/ApplicationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
     loginPage: LoginPageSliceReducer,
     signUpPage: SignUpPageSliceReducer,
     errorPage: ErrorPageSliceReducer,
+    application: SchemeApplyReducer,
   },
 });
 

@@ -9,7 +9,7 @@ export interface textInputStatProps {
   labelText?: string;
   typeValue?: string;
   name?: string;
-  value?: string;
+  value?: string | File | number;
   outerLabel?: string;
   setForm?: setFormType | undefined;
   errors?: errors;

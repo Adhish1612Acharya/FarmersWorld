@@ -1,5 +1,10 @@
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+
+interface CustomParams {
+  folder: string;
+  allowedFormats: string[];
+}
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -7,15 +12,10 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
+export const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "farmersWorld_DEV",
     allowedFormats: ["png", "jpg", "jpeg"],
-  },
+  } as CustomParams,
 });
-
-module.exports = {
-  cloudinary,
-  storage,
-};

@@ -149,6 +149,9 @@ export const applyScheme = async (req: Request, res: Response) => {
   try {
     let { id } = req.params;
     let newApplication = new Application(req.body);
+    if (req.file?.path !== undefined) {
+      newApplication.image = req.file?.path;
+    }
     newApplication.applicant = new Types.ObjectId(req.user?._id as string);
     newApplication.schemeName = new Types.ObjectId(id as string);
     let savedApplication = (await newApplication.save()) as applicationDocument;

@@ -5,13 +5,14 @@ import {
   validateApplicationSchema,
   UserRole,
   checkApplicationApplied,
+  populateBody,
 } from "../middlewares";
 
 import schemesController from "../controllers/schemes";
-// const { storage } = require("../cloudConfig.js");
-// const multer = require("multer");
-// const Upload = multer({ storage });
-// const cloudinary = require("../cloudConfig.js").cloudinary;
+import { storage } from "../cloudConfig";
+import multer from "multer";
+const upload = multer({ storage });
+const cloudinary = require("../cloudConfig").cloudinary;
 
 router.get("/", wrapAsync(schemesController.allSchemes));
 
@@ -22,6 +23,8 @@ router.get("/filter/:filter", wrapAsync(schemesController.filterSchemeDetail));
 router.post(
   "/:id/apply",
   UserRole,
+  upload.single("image"),
+  populateBody,
   validateApplicationSchema,
   checkApplicationApplied,
   wrapAsync(schemesController.applyScheme)

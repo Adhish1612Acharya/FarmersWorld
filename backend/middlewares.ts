@@ -161,3 +161,12 @@ export const checkApplicationApplied = async (
     next();
   }
 };
+
+export const populateBody = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  req.body = JSON.parse(JSON.stringify(req.body));
+  next();
+};
