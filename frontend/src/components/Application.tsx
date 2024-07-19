@@ -13,7 +13,7 @@ import {
   value,
   imageErrors,
 } from "../types/componentsTypes/Application";
-import theme from "../theme";
+import theme from "../theme"; //demo
 
 const Application: FC<ApplicationProps> = ({ schemeId }) => {
   let navigate = useNavigate();
