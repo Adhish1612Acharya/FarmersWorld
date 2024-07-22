@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { applicationObj } from "../../../types/routesTypes/user/UserApplications";
 import { NavigateFunction } from "react-router-dom";
 import axios from "axios";
@@ -10,6 +10,13 @@ export interface stateBtnObj {
   color: string;
 }
 
+export interface applicationStatNo {
+  all: number;
+  approved: number;
+  rejected: number;
+  processing: number;
+}
+
 interface stateObj {
   showComponent: boolean;
   navLogin: boolean;
@@ -17,6 +24,9 @@ interface stateObj {
   applications: applicationObj[];
   applicationType: string;
   statBtn: stateBtnObj[] | statBtnObj;
+  clicked: boolean;
+  btnId: string;
+  statNo: applicationStatNo;
 }
 
 const initialState: stateObj = {
@@ -26,6 +36,14 @@ const initialState: stateObj = {
   applications: [],
   applicationType: "All",
   statBtn: [],
+  clicked: false,
+  btnId: "",
+  statNo: {
+    all: 0,
+    approved: 0,
+    rejected: 0,
+    processing: 0,
+  },
 };
 
 interface payLoad {
@@ -36,17 +54,24 @@ interface payLoad {
 export const getUserApplications = createAsyncThunk(
   "/userApplications",
   async (navigate: NavigateFunction, thunkAPI) => {
-    const response = await axios.get("/api/farmers/getApplications", {
-      withCredentials: true,
-    });
-    if (response.data === "notLogin") {
-      toast.warn("You must login");
-      navigate("/login");
-    } else if (response.data === "roleIsAdmin") {
-      toast.warn("You need to log out of admin");
-      navigate("/admin");
-    } else {
-      return response.data;
+    thunkAPI.dispatch(setBtnDisable({ clickStatus: true, id: "all" }));
+    try {
+      const response = await axios.get("/api/farmers/getApplications", {
+        withCredentials: true,
+      });
+      if (response.data === "notLogin") {
+        toast.warn("You must login");
+        navigate("/login");
+      } else if (response.data === "roleIsAdmin") {
+        toast.warn("You need to log out of admin");
+        navigate("/admin");
+      } else {
+        return response.data;
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error("Some errror occurred Please try refreshing the page");
+      navigate("/");
     }
   }
 );
@@ -54,23 +79,30 @@ export const getUserApplications = createAsyncThunk(
 export const getFilterApplications = createAsyncThunk(
   "/filterApplications",
   async ({ navigate, filter }: payLoad, thunkAPI) => {
-    const response = await axios.get(
-      `/api/farmers/getApplications/filter/${filter}`,
-      {
-        withCredentials: true,
+    try {
+      thunkAPI.dispatch(setBtnDisable({ clickStatus: true, id: filter }));
+      const response = await axios.get(
+        `/api/farmers/getApplications/filter/${filter}`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.data === "notLogin") {
+        toast.warn("You must login");
+        navigate("/login");
+      } else if (response.data === "roleIsAdmin") {
+        toast.warn("You need to log out of admin");
+        navigate("/admin");
+      } else {
+        return {
+          applications: response.data,
+          status: filter,
+        };
       }
-    );
-    if (response.data === "notLogin") {
-      toast.warn("You must login");
-      navigate("/login");
-    } else if (response.data === "roleIsAdmin") {
-      toast.warn("You need to log out of admin");
-      navigate("/admin");
-    } else {
-      return {
-        applications: response.data,
-        status: filter,
-      };
+    } catch (err) {
+      console.log(err);
+      toast.error("Some errror occurred Please try refreshing the page");
+      navigate("/");
     }
   }
 );
@@ -78,7 +110,15 @@ export const getFilterApplications = createAsyncThunk(
 export const UserApplicationSlice = createSlice({
   name: "userApplications",
   initialState,
-  reducers: {},
+  reducers: {
+    setBtnDisable: (
+      state,
+      action: PayloadAction<{ clickStatus: boolean; id: string }>
+    ) => {
+      state.clicked = action.payload.clickStatus;
+      state.btnId = action.payload.id;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getUserApplications.pending, (state, action) => {
       state.showComponent = false;
@@ -88,6 +128,13 @@ export const UserApplicationSlice = createSlice({
         state.applicationType = "all";
         state.applications = action.payload.applications;
         state.statBtn = action.payload.status;
+        const statNo = action.payload.statTypeNo;
+        state.statNo = {
+          all: statNo.all,
+          approved: statNo.approved,
+          rejected: statNo.rejected,
+          processing: statNo.processing,
+        };
         state.navLogin = true;
         state.filterLoad = false;
         state.showComponent = true;
@@ -121,4 +168,4 @@ export const UserApplicationSlice = createSlice({
 });
 
 export default UserApplicationSlice.reducer;
-export const {} = UserApplicationSlice.actions;
+export const { setBtnDisable } = UserApplicationSlice.actions;

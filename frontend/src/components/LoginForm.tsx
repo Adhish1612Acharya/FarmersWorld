@@ -5,7 +5,7 @@ import "../styles/Form.css";
 import Navbar from "./NavBar";
 import { FC, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { server } from "../serv.js";
+import { server } from "../server.js";
 import { loginFormProps } from "../types/componentsTypes/LoginForm";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import {
@@ -15,12 +15,14 @@ import {
 } from "../store/features/otherPages/LoginPageSlice";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../theme";
+import { LoadingButton } from "@mui/lab";
 
 const LoginForm: FC<loginFormProps> = ({ route }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   let value = useAppSelector((state) => state.loginPage.value);
   let error = useAppSelector((state) => state.loginPage.error);
+  let loginLoad = useAppSelector((state) => state.loginPage.loginLoad);
 
   let setInputData = (event: ChangeEvent<HTMLInputElement>): void => {
     dispatch(
@@ -67,9 +69,20 @@ const LoginForm: FC<loginFormProps> = ({ route }) => {
             errors={error.password}
           />
 
-          <Button variant="contained" type="submit">
-            Login
-          </Button>
+          {!loginLoad ? (
+            <Button variant="contained" type="submit">
+              Login
+            </Button>
+          ) : (
+            <LoadingButton
+              size="small"
+              loading={true}
+              variant="contained"
+              disabled
+            >
+              <span>disabled</span>
+            </LoadingButton>
+          )}
         </Form>
       </div>
     </ThemeProvider>

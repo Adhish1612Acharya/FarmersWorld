@@ -5,25 +5,27 @@ import {
 } from "./schemaValidation";
 import expressError from "./utils/expressError";
 import { Request, Response, NextFunction } from "express";
-import { ValidationErrorItem } from "joi";
 import { User } from "./types/UserType.js";
 
 import Farmer, { farmersDocument } from "./models/Farmers";
 import isPopulatedApplication from "./types/helperFunction";
+import { ZodError } from "zod";
 
 export const validateApplicationSchema = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  let { error } = applicationSchema.validate(req.body);
-  if (error) {
-    let errorMsg = error.details
-      .map((el: ValidationErrorItem) => el.message)
-      .join(",");
-    throw new expressError(400, errorMsg);
-  } else {
+  try {
+    applicationSchema.parse(req.body);
     next();
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const errorMsg = error.errors.map((el) => el.message).join(",");
+      throw new expressError(400, errorMsg);
+    } else {
+      next(error);
+    }
   }
 };
 
@@ -32,15 +34,16 @@ export const validateSignUpForm = (
   res: Response,
   next: NextFunction
 ) => {
-  let { error } = signUpFormValidation.validate(req.body);
-  if (error) {
-    let errMsg = error.details
-      .map((el: ValidationErrorItem) => el.message)
-      .join(",");
-    errMsg;
-    throw new expressError(400, errMsg);
-  } else {
+  try {
+    signUpFormValidation.parse(req.body);
     next();
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const errorMsg = error.errors.map((el) => el.message).join(",");
+      throw new expressError(400, errorMsg);
+    } else {
+      next(error);
+    }
   }
 };
 
@@ -49,14 +52,16 @@ export const validateLoginForm = (
   res: Response,
   next: NextFunction
 ) => {
-  let { error } = loginFormValidation.validate(req.body);
-  if (error) {
-    let errMsg = error.details
-      .map((el: ValidationErrorItem) => el.message)
-      .join(",");
-    throw new expressError(400, errMsg);
-  } else {
+  try {
+    loginFormValidation.parse(req.body);
     next();
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const errorMsg = error.errors.map((el) => el.message).join(",");
+      throw new expressError(400, errorMsg);
+    } else {
+      next(error);
+    }
   }
 };
 

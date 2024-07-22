@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavigateFunction } from "react-router-dom";
 import { toast } from "react-toastify";
 import { schemeObj } from "../../../types/componentsTypes/SchemeCard";
+import { server } from "../../../server";
 
 interface homeState {
   showComponent: boolean;
@@ -29,7 +30,7 @@ export const getSchemesData = createAsyncThunk(
   "/getSchemes",
   async (navigate: NavigateFunction, thunkAPI) => {
     try {
-      const schemes = await axios.get("/api/schemes", {
+      const schemes = await axios.get(`${server}/api/schemes`, {
         withCredentials: true,
       });
       if (!schemes.data.login) {
@@ -55,7 +56,7 @@ export const handleFilterClick = createAsyncThunk(
     try {
       let schemes: any;
 
-      schemes = await axios.get(`/api/schemes/filter/${filter}`, {
+      schemes = await axios.get(`${server}/api/schemes/filter/${filter}`, {
         withCredentials: true,
       });
 

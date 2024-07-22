@@ -15,19 +15,7 @@ const SchemeCard: FC<schemeCardProps> = ({
 }) => {
   return (
     <ThemeProvider theme={theme}>
-      <Paper
-        elevation={8}
-        style={{
-          width: "50rem",
-          height: "max-content",
-          display: "flex",
-          justifyContent: "space-evenly",
-          padding: "2rem",
-          borderRadius: "20px",
-          margin: "20px",
-        }}
-        className="paper"
-      >
+      <Paper elevation={8} className="paper">
         {!home ? (
           <>
             {isApplication ? (
@@ -42,11 +30,11 @@ const SchemeCard: FC<schemeCardProps> = ({
           </>
         ) : null}
 
-        <Box sx={{ margin: "15px", textAlign: "center" }}>
-          <h1>{scheme?.heading}</h1>
+        <Box sx={{ textAlign: "center" }} className="headingBox">
+          <h2>{scheme?.heading}</h2>
           <p>{scheme?.shortDescription}</p>
         </Box>
-        <Box sx={{ width: "20rem" }}>
+        <Box sx={{ width: "20rem" }} className="imageBox">
           <img
             style={{ borderRadius: "20px", width: "100%" }}
             src={scheme?.image}

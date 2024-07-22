@@ -1,6 +1,6 @@
 import { useEffect, FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, CircularProgress, ThemeProvider } from "@mui/material";
+import { Badge, Button, CircularProgress, ThemeProvider } from "@mui/material";
 import NavBar from "../../components/NavBar";
 import SchemeCard from "../../components/SchemeCard";
 import {
@@ -27,6 +27,10 @@ const UserApplications: FC = () => {
   let filterLoad = useAppSelector((state) => state.userApplications.filterLoad);
   let statBtns = useAppSelector((state) => state.userApplications.statBtn);
 
+  let clicked = useAppSelector((state) => state.userApplications.clicked);
+  let btnId = useAppSelector((state) => state.userApplications.btnId);
+  let statNo = useAppSelector((state) => state.userApplications.statNo);
+
   useEffect(() => {
     dispatch(getUserApplications(navigate));
   }, []);
@@ -36,65 +40,143 @@ const UserApplications: FC = () => {
       <>
         {showComponent ? (
           <>
-            <NavBar login={navLogin} admin={false} homePage={false} />
+            <NavBar
+              login={navLogin}
+              admin={false}
+              homePage={false}
+              navigate={navigate}
+            />
 
             {!filterLoad ? (
               <>
                 <div className="btns">
                   <h2 style={{ marginTop: "3rem" }}>
-                    {applicationType} Applications
+                    {applicationType.toUpperCase()} APPLICATIONS
                   </h2>
-                  <Button
-                    onClick={() => dispatch(getUserApplications(navigate))}
-                    variant="contained"
-                    id="all"
-                    style={{ marginRight: "1rem" }}
+                  <Badge
+                    badgeContent={statNo.all}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    color="primary"
+                    showZero
                   >
-                    All Applications
-                  </Button>
-                  <Button
-                    onClick={() =>
-                      dispatch(
-                        getFilterApplications({ navigate, filter: "approved" })
-                      )
-                    }
-                    variant="contained"
-                    color="success"
-                    style={{ marginRight: "1rem" }}
+                    <Button
+                      onClick={() => dispatch(getUserApplications(navigate))}
+                      variant="contained"
+                      id="all"
+                      style={{
+                        marginRight: "1rem",
+                        color: btnId === "all" ? "black" : "",
+                        backgroundColor:
+                          clicked && btnId === "all" ? "#BDBDBD" : "orange",
+                      }}
+                      disabled={clicked && btnId === "all" ? true : false}
+                    >
+                      All Applications
+                    </Button>
+                  </Badge>
+                  <Badge
+                    badgeContent={statNo.approved}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    color="primary"
+                    showZero
                   >
-                    Approved
-                  </Button>
-                  <Button
-                    onClick={() =>
-                      dispatch(
-                        getFilterApplications({ navigate, filter: "rejected" })
-                      )
-                    }
-                    variant="contained"
-                    color="error"
-                    style={{ marginRight: "1rem" }}
+                    <Button
+                      onClick={() =>
+                        dispatch(
+                          getFilterApplications({
+                            navigate,
+                            filter: "approved",
+                          })
+                        )
+                      }
+                      variant="contained"
+                      color="success"
+                      style={{
+                        marginRight: "1rem",
+                        color: btnId === "approved" ? "black" : "",
+                      }}
+                      disabled={clicked && btnId === "approved" ? true : false}
+                    >
+                      Approved
+                    </Button>
+                  </Badge>
+                  <Badge
+                    badgeContent={statNo.rejected}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    color="primary"
+                    showZero
                   >
-                    Rejected
-                  </Button>
-                  <Button
-                    onClick={() =>
-                      dispatch(
-                        getFilterApplications({
-                          navigate,
-                          filter: "processing",
-                        })
-                      )
-                    }
-                    variant="contained"
-                    color="secondary"
-                    style={{ marginRight: "1rem" }}
+                    <Button
+                      onClick={() =>
+                        dispatch(
+                          getFilterApplications({
+                            navigate,
+                            filter: "rejected",
+                          })
+                        )
+                      }
+                      variant="contained"
+                      color="error"
+                      style={{
+                        marginRight: "1rem",
+                        color: btnId === "rejected" ? "black" : "",
+                      }}
+                      disabled={clicked && btnId === "rejected" ? true : false}
+                    >
+                      Rejected
+                    </Button>
+                  </Badge>
+                  <Badge
+                    badgeContent={statNo.processing}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    color="primary"
+                    showZero
                   >
-                    Processing
-                  </Button>
+                    <Button
+                      onClick={() =>
+                        dispatch(
+                          getFilterApplications({
+                            navigate,
+                            filter: "processing",
+                          })
+                        )
+                      }
+                      variant="contained"
+                      color="secondary"
+                      style={{
+                        marginRight: "1rem",
+                        color: btnId === "processing" ? "black" : "",
+                      }}
+                      disabled={
+                        clicked && btnId === "processing" ? true : false
+                      }
+                    >
+                      Processing
+                    </Button>
+                  </Badge>
                 </div>
 
                 {applications?.length === 0 ? (
-                  <h1>No applications {applicationType}</h1>
+                  <h1>
+                    NO APPLICATIONS{" "}
+                    {applicationType === "processing"
+                      ? "UNDER PROCESSING"
+                      : applicationType === "all"
+                      ? ""
+                      : applicationType.toUpperCase()}
+                  </h1>
                 ) : null}
                 {applications.map((application, index) => {
                   return (

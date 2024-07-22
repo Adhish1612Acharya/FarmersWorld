@@ -22,7 +22,8 @@ interface statObj {
   value: valueObj;
   errors: errorObj;
   textInptError: boolean;
-  imagePreview: string | undefined;
+  imagePreview: any;
+  submitLoad: boolean;
 }
 
 interface payLoad {
@@ -43,7 +44,8 @@ const initialState: statObj = {
     image: { errMsg: "", valid: true },
   },
   textInptError: false,
-  imagePreview: undefined,
+  imagePreview: "",
+  submitLoad: false,
 };
 
 export const applyScheme = createAsyncThunk(
@@ -51,7 +53,7 @@ export const applyScheme = createAsyncThunk(
   async ({ imageFile, id, navigate }: payLoad, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
     if (!state.application.textInptError) {
-      console.log("axos request sending");
+      thunkAPI.dispatch(setSubmitLoad(true));
       let data = new FormData();
       data.append("adhaar", state.application.value.adhaar);
       data.append("farmersId", state.application.value.farmersId);
@@ -71,9 +73,9 @@ export const applyScheme = createAsyncThunk(
           "You have already applied and the Application is under processing"
         );
         navigate(`/schemes/${id}`);
-      } else if (response.data === "applied") {
+      } else if (response.data.status === "applied") {
         toast.success("Applied successfully");
-        navigate("/schemes/applications");
+        navigate(`/schemes/applications/${response.data.id}`);
       }
     }
   }
@@ -89,6 +91,7 @@ export const ApplicationSlice = createSlice({
     ) => {
       state.errors[action.payload.name] = { errMsg: "", valid: true };
       if (action.payload.name === "image") {
+        state.imagePreview = "";
         state.value[action.payload.name] = action.payload.value;
       } else {
         state.value[action.payload.name] = action.payload.value;
@@ -132,9 +135,20 @@ export const ApplicationSlice = createSlice({
       }
       state.textInptError = err;
     },
+    fileReader: (state, action: PayloadAction<any>) => {
+      state.imagePreview = action.payload;
+    },
+    setSubmitLoad: (state, action: PayloadAction<boolean>) => {
+      state.submitLoad = action.payload;
+    },
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addCase(applyScheme.fulfilled, (state, action) => {
+      state.submitLoad = false;
+    });
+  },
 });
 
 export default ApplicationSlice.reducer;
-export const { setInputData, validation } = ApplicationSlice.actions;
+export const { setInputData, validation, fileReader, setSubmitLoad } =
+  ApplicationSlice.actions;

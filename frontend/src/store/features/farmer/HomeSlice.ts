@@ -2,7 +2,9 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { schemeObj } from "../../../types/routesTypes/user/Home";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
+import { RootState } from "../../store";
+import { server } from "../../../server";
 
 interface homeState {
   showComponent: boolean;
@@ -10,6 +12,8 @@ interface homeState {
   navLogin: boolean;
   schemes: schemeObj[];
   count: number[] | -1;
+  clickedFilter: boolean;
+  filterIdentifier: string;
 }
 
 const initialState: homeState = {
@@ -18,6 +22,8 @@ const initialState: homeState = {
   navLogin: false,
   schemes: [],
   count: -1,
+  clickedFilter: false,
+  filterIdentifier: "",
 };
 
 interface Payload {
@@ -29,7 +35,8 @@ export const getSchemesData = createAsyncThunk(
   "/getSchemes",
   async (navigate: NavigateFunction, thunkAPI) => {
     try {
-      const schemes = await axios.get("/api/schemes", {
+      thunkAPI.dispatch(setFilterStyle({ filter: "", value: false }));
+      const schemes = await axios.get(`${server}/api/schemes`, {
         withCredentials: true,
       });
       if (window.location.pathname === "/admin") {
@@ -61,10 +68,11 @@ export const getSchemesData = createAsyncThunk(
 export const handleFilterClick = createAsyncThunk(
   "/getFilterSchemes",
   async ({ navigate, filter }: Payload, thunkAPI) => {
+    thunkAPI.dispatch(setFilterStyle({ filter, value: true }));
     try {
       let schemes: any;
 
-      schemes = await axios.get(`/api/schemes/filter/${filter}`, {
+      schemes = await axios.get(`${server}/api/schemes/filter/${filter}`, {
         withCredentials: true,
       });
 
@@ -85,6 +93,13 @@ export const HomeSlice = createSlice({
     },
     setLogin: (state, action: PayloadAction<boolean>) => {
       state.navLogin = action.payload;
+    },
+    setFilterStyle: (
+      state,
+      action: PayloadAction<{ filter: string; value: boolean }>
+    ) => {
+      state.clickedFilter = action.payload.value;
+      state.filterIdentifier = action.payload.filter;
     },
   },
   extraReducers: (builder) => {
@@ -120,4 +135,4 @@ export const HomeSlice = createSlice({
 });
 
 export default HomeSlice.reducer;
-export const { setLoading, setLogin } = HomeSlice.actions;
+export const { setLoading, setLogin, setFilterStyle } = HomeSlice.actions;

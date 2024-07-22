@@ -17,9 +17,11 @@ import theme from "../theme";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import {
   applyScheme,
+  fileReader,
   setInputData,
   validation,
 } from "../store/features/component/ApplicationSlice";
+import { LoadingButton } from "@mui/lab";
 
 const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
   const dispatch = useAppDispatch();
@@ -27,6 +29,7 @@ const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
   let errors = useAppSelector((state) => state.application.errors);
   let [imageFile, setImageFile] = useState<File | "">("");
   let imagePreview = useAppSelector((state) => state.application.imagePreview);
+  let submitLoad = useAppSelector((state) => state.application.submitLoad);
 
   let setFormData = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.type === "file") {
@@ -35,6 +38,13 @@ const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
           ? event.target.files[0]
           : "";
       setImageFile(file);
+      const reader = new FileReader();
+      if (file instanceof Blob) {
+        reader.readAsDataURL(file);
+      }
+      reader.onloadend = () => {
+        dispatch(fileReader(reader.result));
+      };
       const imageValue =
         event.target.files && event.target.files.length > 0
           ? event.target.files[0].name
@@ -86,7 +96,15 @@ const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
             errors={errors.farmersId}
           />
 
-          {imagePreview !== undefined ? <img src={imagePreview} /> : ""}
+          {imagePreview !== "" ? (
+            <img
+              src={imagePreview}
+              alt={"Your image"}
+              style={{ width: "5rem", height: "5rem" }}
+            />
+          ) : (
+            ""
+          )}
 
           <TextInput
             typeValue={"file"}
@@ -96,9 +114,20 @@ const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
             errors={errors.image}
           />
 
-          <Button type="submit" variant="contained" color="success">
-            Submit
-          </Button>
+          {!submitLoad ? (
+            <Button type="submit" variant="contained" color="success">
+              Submit
+            </Button>
+          ) : (
+            <LoadingButton
+              size="small"
+              loading={true}
+              variant="contained"
+              disabled
+            >
+              <span>disabled</span>
+            </LoadingButton>
+          )}
         </Form>
       </div>
     </ThemeProvider>

@@ -8,7 +8,7 @@ import {
   LoaderFunctionArgs,
 } from "react-router-dom";
 import { CircularProgress, ThemeProvider } from "@mui/material";
-import { server } from "../../serv";
+import { server } from "../../server";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { checkSchemeApplied } from "../../store/features/farmer/ApplySchemeSlice";
 import theme from "../../theme";
@@ -40,7 +40,12 @@ const ApplyScheme: FC = () => {
       <>
         {showComponent ? (
           <>
-            <NavBar login={navLogin} admin={false} homePage={false} />
+            <NavBar
+              login={navLogin}
+              admin={false}
+              homePage={false}
+              navigate={navigate}
+            />
             <h1>Application for : {scheme ? scheme.heading : null}</h1>
             <Application schemeId={schemeId} navigate={navigate} />
           </>

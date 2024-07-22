@@ -8,7 +8,7 @@ import {
 import { useEffect, FC } from "react";
 import DetailsTable from "../../components/DetailsTable";
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
-import { server } from "../../serv";
+import { server } from "../../server";
 import { loaderReturnObj } from "../../types/routesTypes/admin/ApplicationDetail";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
@@ -52,7 +52,12 @@ const ApplicationDetail: FC = () => {
       <>
         {showComponent ? (
           <>
-            <NavBar login={navLogin} homePage={false} admin={true} />
+            <NavBar
+              login={navLogin}
+              homePage={false}
+              admin={true}
+              navigate={navigate}
+            />
             {!loading ? (
               <>
                 <Button

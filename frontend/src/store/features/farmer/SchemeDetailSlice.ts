@@ -63,9 +63,9 @@ export const SchemeDetailSlice = createSlice({
     builder.addCase(getSchemeDetail.fulfilled, (state, action) => {
       state.showComponent = false;
       if (action.payload !== undefined) {
+        state.applied = action.payload.applied;
         state.schemeInfo = action.payload.schemeDetail;
         state.navLogin = action.payload.login;
-        state.applied = action.payload.applied;
         state.showComponent = true;
       } else if (action.payload === undefined) {
         state.showComponent = false;

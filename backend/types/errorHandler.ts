@@ -8,8 +8,8 @@ const errorHandler = (
 ) => {
   if (err) {
     console.log("error middleware");
-    const statusNumber = err.statusCode || 500;
-    const Msg = err.errorMsg || "Internal server error";
+    const statusNumber = err.status || 500;
+    const Msg = err.errMsg;
     console.log(`${statusNumber} , ${Msg}`);
     res.status(statusNumber);
   } else {

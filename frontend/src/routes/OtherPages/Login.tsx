@@ -4,7 +4,7 @@ import { Button, ThemeProvider } from "@mui/material";
 import { CircularProgress } from "@mui/material";
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { server } from "../../serv";
+import { server } from "../../server";
 import {
   checkLogin,
   setApiRoute,
@@ -27,7 +27,12 @@ const Login: FC = () => {
       <>
         {showComponent ? (
           <>
-            <NavBar login={false} />
+            <NavBar
+              login={false}
+              admin={false}
+              homePage={false}
+              navigate={navigate}
+            />
             <h1>
               Login as{" "}
               {apiRoute === "farmers/login" ? (
@@ -41,7 +46,11 @@ const Login: FC = () => {
                 <Button
                   variant="contained"
                   disabled
-                  style={{ backgroundColor: "#1976d2", color: "white" }}
+                  style={{
+                    backgroundColor: "#1976d2",
+                    color: "white",
+                    margin: "1rem",
+                  }}
                 >
                   <b>Farmer</b>
                 </Button>
@@ -50,7 +59,11 @@ const Login: FC = () => {
                   onClick={() => {
                     dispatch(setApiRoute("admin/login"));
                   }}
-                  style={{ backgroundColor: "#BDBDBD", color: "black" }}
+                  style={{
+                    backgroundColor: "#BDBDBD",
+                    color: "black",
+                    margin: "1rem",
+                  }}
                 >
                   Admin
                 </Button>
@@ -62,14 +75,22 @@ const Login: FC = () => {
                   onClick={() => {
                     dispatch(setApiRoute("farmers/login"));
                   }}
-                  style={{ backgroundColor: "#BDBDBD", color: "black" }}
+                  style={{
+                    backgroundColor: "#BDBDBD",
+                    color: "black",
+                    margin: "1rem",
+                  }}
                 >
                   Farmer
                 </Button>
                 <Button
                   variant="contained"
                   disabled
-                  style={{ backgroundColor: "#1976d2", color: "white" }}
+                  style={{
+                    backgroundColor: "#1976d2",
+                    color: "white",
+                    margin: "1rem",
+                  }}
                 >
                   <b>Admin</b>
                 </Button>

@@ -11,6 +11,7 @@ interface statObj {
   value: valueObj;
   error: errorObj;
   textInputErr: boolean;
+  signUpLoad: boolean;
 }
 
 const initialState: statObj = {
@@ -36,6 +37,7 @@ const initialState: statObj = {
     },
   },
   textInputErr: false,
+  signUpLoad: false,
 };
 
 interface payLoad {
@@ -75,6 +77,7 @@ export const signUp = createAsyncThunk(
       const state = thunkAPI.getState() as RootState;
       const textIputError = state.signUpPage.textInputErr;
       if (!textIputError) {
+        thunkAPI.dispatch(setSignUpLoad(true));
         const response = await axios.post(`/api/${apiRoute}`, value, {
           withCredentials: true,
         });
@@ -117,7 +120,7 @@ export const SignUpPageSlice = createSlice({
         loginData: valueObj;
       }>
     ) => {
-      const regex = /^[^\s]+$/;
+      const regex = /^\S+$/;
       const emailRegex = /^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*@gmail\.com$/;
       let err = false;
       if (!regex.test(action.payload.loginData.username)) {
@@ -142,6 +145,9 @@ export const SignUpPageSlice = createSlice({
         err = true;
       }
       state.textInputErr = err;
+    },
+    setSignUpLoad: (state, action: PayloadAction<boolean>) => {
+      state.signUpLoad = true;
     },
   },
   extraReducers: (builder) => {
@@ -178,6 +184,7 @@ export const SignUpPageSlice = createSlice({
     });
 
     builder.addCase(signUp.fulfilled, (state, action) => {
+      state.signUpLoad = false;
       if (action.payload !== undefined && action.payload !== "signUpError") {
         if (!state.textInputErr) {
           state.value = {
@@ -191,5 +198,5 @@ export const SignUpPageSlice = createSlice({
 });
 
 export default SignUpPageSlice.reducer;
-export const { setApiRoute, setFormData, validateForm } =
+export const { setApiRoute, setFormData, validateForm, setSignUpLoad } =
   SignUpPageSlice.actions;

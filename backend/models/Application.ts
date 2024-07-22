@@ -14,10 +14,12 @@ const applicationSchema = new Schema<applicationDocument>({
   adhaar: {
     type: String,
     required: true,
+    match: [/^\d{12}$/, "Invalid adhaar"],
   },
   farmersId: {
     type: String,
     required: true,
+    match: [/^\d{12}$/, "Invalid farmersId"],
   },
   image: {
     type: String,

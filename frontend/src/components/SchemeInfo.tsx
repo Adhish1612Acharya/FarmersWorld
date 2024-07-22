@@ -1,9 +1,6 @@
-import NavBar from "./NavBar";
 import { Paper, ThemeProvider } from "@mui/material";
 import "../styles/SchemeInfo.css";
 import Button from "@mui/material/Button";
-import Application from "./Application";
-import { useNavigate } from "react-router-dom";
 import { FC } from "react";
 import { schemeInfoProps } from "../types/componentsTypes/SchemeInfo";
 import theme from "../theme";
@@ -12,11 +9,7 @@ const SchemeInfo: FC<schemeInfoProps> = ({ info, applied, navigate }) => {
   return (
     <ThemeProvider theme={theme}>
       <>
-        <Paper
-          className="schemeInfo"
-          style={{ marginTop: "2rem" }}
-          elevation={8}
-        >
+        <Paper className="schemeInfo" elevation={8}>
           <div className="infoHeader">
             <h2 style={{ display: "inline-block" }}>{info?.heading}</h2>
             {!applied ? (

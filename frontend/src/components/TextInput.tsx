@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import { ChangeEvent, FC } from "react";
+import { ChangeEvent, FC, KeyboardEvent } from "react";
 import { textInputStatProps } from "../types/componentsTypes/TextInput";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../theme";
@@ -13,6 +13,11 @@ const TextInput: FC<textInputStatProps> = ({
   setForm,
   errors,
 }) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === " ") {
+      event.preventDefault();
+    }
+  };
   return (
     <ThemeProvider theme={theme}>
       <div className="textField" style={{ margin: "2rem" }}>
@@ -29,6 +34,7 @@ const TextInput: FC<textInputStatProps> = ({
           onChange={setForm}
           error={!errors?.valid}
           helperText={errors?.errMsg}
+          onKeyDown={handleKeyDown}
         />
       </div>
     </ThemeProvider>

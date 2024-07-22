@@ -8,7 +8,7 @@ import {
   LoaderFunctionArgs,
 } from "react-router-dom";
 import { CircularProgress, ThemeProvider } from "@mui/material";
-import { server } from "../../serv";
+import { server } from "../../server";
 import { getApplications } from "../../store/features/admin/ApplicationSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import theme from "../../theme";
@@ -41,12 +41,18 @@ const Applications: FC = () => {
       <>
         {showComponent ? (
           <>
-            <NavBar login={navLogin} homePage={false} admin={true} />
+            <NavBar
+              login={navLogin}
+              homePage={false}
+              admin={true}
+              navigate={navigate}
+            />
             <h1 style={{ marginTop: "4rem" }}>{heading}</h1>
             <div
               style={{
                 height: "max-content",
                 marginTop: "6rem",
+                width: "100%",
               }}
             >
               {applications.length === 0 ? (

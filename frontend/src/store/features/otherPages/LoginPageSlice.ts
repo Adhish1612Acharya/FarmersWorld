@@ -16,6 +16,7 @@ interface statObj {
   value: valueObj;
   error: errorObj;
   textInputErr: boolean;
+  loginLoad: boolean;
 }
 
 const initialState: statObj = {
@@ -36,6 +37,7 @@ const initialState: statObj = {
     },
   },
   textInputErr: false,
+  loginLoad: false,
 };
 
 interface payLoad {
@@ -69,6 +71,7 @@ export const login = createAsyncThunk(
       const state = thunkAPI.getState() as RootState;
       const textIputError = state.loginPage.textInputErr;
       if (!textIputError) {
+        thunkAPI.dispatch(setLoginLoad(true));
         const response = await axios.post(`/api/${apiRoute}`, value, {
           withCredentials: true,
         });
@@ -110,7 +113,7 @@ export const LoginPageSlice = createSlice({
         loginData: valueObj;
       }>
     ) => {
-      const regex = /^[^\s]+$/;
+      const regex = /^\S+$/;
       let err = false;
       if (!regex.test(action.payload.loginData.username)) {
         state.error.username = {
@@ -127,6 +130,9 @@ export const LoginPageSlice = createSlice({
         err = true;
       }
       state.textInputErr = err;
+    },
+    setLoginLoad: (state, action: PayloadAction<boolean>) => {
+      state.loginLoad = true;
     },
   },
   extraReducers: (builder) => {
@@ -158,6 +164,7 @@ export const LoginPageSlice = createSlice({
     });
 
     builder.addCase(login.fulfilled, (state, action) => {
+      state.loginLoad = false;
       if (action.payload !== "failureLogin") {
         if (!state.textInputErr) {
           state.value = {
@@ -171,5 +178,5 @@ export const LoginPageSlice = createSlice({
 });
 
 export default LoginPageSlice.reducer;
-export const { setApiRoute, setFormData, validateForm } =
+export const { setApiRoute, setFormData, validateForm, setLoginLoad } =
   LoginPageSlice.actions;

@@ -12,6 +12,7 @@ import passport from "passport";
 import { Strategy as localStrategy } from "passport-local";
 import cors from "cors";
 import errorHandler from "./types/errorHandler";
+import path from "path";
 
 import Farmer from "./models/Farmers";
 import Admin from "./models/Admin";
@@ -113,6 +114,24 @@ app.use("/api/schemes", schemesRouter); //schemes route
 app.use("/api/farmers", farmerRouter); //auth and authori route for farmers
 app.use("/api/admin", adminRouter); //admin route
 app.use("/api", commonRouter); // route to check login for auth page along with logout
+
+// -------------------Deployment------------------//
+
+const __dirname1 = path.resolve();
+
+if (process.env.NODE_ENV === "local") {
+  app.use(express.static(path.join(__dirname1, "/frontend/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname1, "frontend", "dist", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.json("Success");
+  });
+}
+
+// -------------------Deployment------------------//
 
 app.use(errorHandler);
 

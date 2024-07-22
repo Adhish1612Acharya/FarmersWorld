@@ -7,7 +7,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { FC, useEffect } from "react";
 import SchemeInfo from "../../components/SchemeInfo";
-import { server } from "../../serv";
+import { server } from "../../server";
 import { CircularProgress, ThemeProvider } from "@mui/material";
 import { getSchemeDetail } from "../../store/features/farmer/SchemeDetailSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
@@ -38,7 +38,12 @@ const SchemeDetail: FC = () => {
       <>
         {showComponent ? (
           <>
-            <NavBar login={navLogin} homePage={false} admin={false} />
+            <NavBar
+              login={navLogin}
+              homePage={false}
+              admin={false}
+              navigate={navigate}
+            />
             <SchemeInfo
               info={schemeInfo}
               applied={applied}

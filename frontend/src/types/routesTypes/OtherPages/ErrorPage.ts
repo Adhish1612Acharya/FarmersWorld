@@ -1,3 +1,3 @@
-export type getErrorPageType = (error: unknown) => string;
+export type getErrorPageType = (error: unknown) => void;
 
-export type checkLoginType = () => Promise<void>;
+export type ErrorType = Error | string | unknown;

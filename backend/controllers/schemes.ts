@@ -88,7 +88,7 @@ export const singleScheme = async (req: Request, res: Response) => {
           applied: applied,
           schemeDetail: data,
           login: req.isAuthenticated(),
-          role: req.user?._id,
+          role: req.user?.role,
         });
       } else {
         (req.session as any).redirect = route;
@@ -170,7 +170,7 @@ export const applyScheme = async (req: Request, res: Response) => {
     if (!scheme) {
       res.json("No scheme Found");
     } else {
-      res.json("applied");
+      res.json({ status: "applied", id: savedApplication._id });
     }
   } catch (err) {
     console.log(err);

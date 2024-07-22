@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import Farmer from "../models/Farmers";
 import Application, { applicationDocument } from "../models/Application";
-import { number } from "joi";
-import { statBtn } from "../types/variableTypes";
+import { applicationStatNo, statBtn } from "../types/variableTypes";
 
 export const signUp = async (req: Request, res: Response) => {
   try {
@@ -20,7 +19,6 @@ export const signUp = async (req: Request, res: Response) => {
         res.json("signUpError");
       }
     );
-    console.log(registerFarmer);
     if (!signUpError && registerFarmer) {
       req.login(registerFarmer, (err) => {
         if (err) {
@@ -89,18 +87,32 @@ export const getFarmerApplications = async (req: Request, res: Response) => {
     const allApplications =
       data?.applications as unknown as applicationDocument[];
     let statFeatures: statBtn[] = [];
+    let applicationStatNo: applicationStatNo = {
+      all: 0,
+      approved: 0,
+      rejected: 0,
+      processing: 0,
+    };
     if (allApplications.length !== 0) {
       for (let application of allApplications) {
         if (application.processing === true) {
           statFeatures.push({ status: "Processing", color: "yellow" });
+          applicationStatNo.processing = applicationStatNo.processing + 1;
         } else if (application.approved === true) {
           statFeatures.push({ status: "Approved", color: "green" });
+          applicationStatNo.approved = applicationStatNo.approved + 1;
         } else {
           statFeatures.push({ status: "Rejected", color: "red" });
+          applicationStatNo.rejected = applicationStatNo.rejected + 1;
         }
       }
+      applicationStatNo.all = statFeatures.length;
     }
-    res.json({ applications: allApplications, status: statFeatures });
+    res.json({
+      applications: allApplications,
+      status: statFeatures,
+      statTypeNo: applicationStatNo,
+    });
   } catch (err) {
     console.log(err);
   }

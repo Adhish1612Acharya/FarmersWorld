@@ -3,7 +3,7 @@ import NavBar from "../../components/NavBar";
 import { CircularProgress, ThemeProvider } from "@mui/material";
 import SchemeCard from "../../components/SchemeCard";
 import { useNavigate } from "react-router-dom";
-import { server } from "../../serv";
+import { server } from "../../server";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getSchemesData } from "../../store/features/farmer/HomeSlice";
 import theme from "../../theme";
@@ -26,7 +26,12 @@ const AdminHomePage: FC = () => {
       <>
         {showComponent ? (
           <>
-            <NavBar login={navLogin} homePage={true} admin={true} />
+            <NavBar
+              login={navLogin}
+              homePage={true}
+              admin={true}
+              navigate={navigate}
+            />
             {!filterLoad ? (
               <div
                 style={{

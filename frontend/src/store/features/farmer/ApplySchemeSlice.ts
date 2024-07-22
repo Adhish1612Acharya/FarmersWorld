@@ -35,7 +35,7 @@ export const checkSchemeApplied = createAsyncThunk(
       if (!detail.data.login) {
         toast.warn("You need to login");
         navigate("/login");
-      } else if (detail.data.role === "roleIsAdmin") {
+      } else if (detail.data.role === "admin") {
         toast.warn("You need to log out of admin");
         navigate("/admin");
       } else if (detail.data === "noSchemeFound") {

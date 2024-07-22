@@ -14,12 +14,15 @@ const farmersSchema = new Schema<farmersDocument>({
   email: {
     type: String,
     required: true,
+    match: [/^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*@gmail\.com$/, "Invalid email"],
   },
   adhaar: {
     type: Number,
+    match: [/^\d{12}$/, "Invalid adhaar"],
   },
   farmersId: {
     type: Number,
+    match: [/^\d{12}$/, "Invalid farmersId"],
   },
   applications: [
     {

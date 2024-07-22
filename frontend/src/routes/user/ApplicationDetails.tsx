@@ -9,7 +9,7 @@ import { useEffect, FC } from "react";
 import DetailsTable from "../../components/DetailsTable";
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
 import ApplStatusBtn from "../../components/ApplStatusBtn";
-import { server } from "../../serv";
+import { server } from "../../server";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getApplicationDetail } from "../../store/features/farmer/ApplicationDetailSlice";
 import theme from "../../theme";
@@ -43,7 +43,12 @@ const ApplicationDetails: FC = () => {
       <>
         {showComponent ? (
           <>
-            <NavBar login={navLogin} />
+            <NavBar
+              login={navLogin}
+              navigate={navigate}
+              admin={false}
+              homePage={false}
+            />
             <h3 style={{ display: "flex" }}>
               Application Status :{" "}
               {

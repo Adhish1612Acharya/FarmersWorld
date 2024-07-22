@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import App from "./App.jsx";
+import App from "./App";
 import "./index.css";
 import "./App.css";
 import {
@@ -117,7 +117,7 @@ if (rootElement) {
         <RouterProvider router={router} />
       </Provider>
 
-      {/* <App/> */}
+      {/* <App /> */}
     </>
   );
 } else {

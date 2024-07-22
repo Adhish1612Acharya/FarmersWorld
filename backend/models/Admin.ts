@@ -11,6 +11,7 @@ const adminSchema = new Schema<adminDocument>({
   email: {
     type: String,
     required: true,
+    match: [/^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*@gmail\.com$/, "Invalid email"],
   },
   role: {
     type: String,

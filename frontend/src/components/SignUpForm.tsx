@@ -7,7 +7,7 @@ import { ChangeEvent, FC, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { server } from "../serv.js";
+import { server } from "../server.js";
 import {
   signUpFormProps,
   valueObj,
@@ -21,12 +21,14 @@ import {
 } from "../store/features/otherPages/SignUpPageSlice";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../theme.js";
+import { LoadingButton } from "@mui/lab";
 
 const SignUpForm: FC<signUpFormProps> = ({ route }) => {
   let navigate = useNavigate();
   const dispatch = useAppDispatch();
   let value = useAppSelector((state) => state.signUpPage.value);
   let error = useAppSelector((state) => state.signUpPage.error);
+  let signUpLoad = useAppSelector((state) => state.signUpPage.signUpLoad);
 
   let setInputData = (event: ChangeEvent<HTMLInputElement>): void => {
     event.target;
@@ -86,9 +88,20 @@ const SignUpForm: FC<signUpFormProps> = ({ route }) => {
               errors={error.password}
             />
 
-            <Button variant="contained" type="submit">
-              SignUp
-            </Button>
+            {!signUpLoad ? (
+              <Button variant="contained" type="submit">
+                SignUp
+              </Button>
+            ) : (
+              <LoadingButton
+                size="small"
+                loading={true}
+                variant="contained"
+                disabled
+              >
+                <span>disabled</span>
+              </LoadingButton>
+            )}
           </Form>
         </div>
       </>
