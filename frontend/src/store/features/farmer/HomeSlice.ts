@@ -105,6 +105,8 @@ export const HomeSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getSchemesData.fulfilled, (state, action) => {
       if (action.payload !== undefined) {
+        console.log(getSchemesData);
+        console.log(server);
         state.schemes = action.payload?.schemes;
         state.navLogin = action.payload.login;
         state.showComponent = true;
