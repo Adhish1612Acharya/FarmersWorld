@@ -42,7 +42,7 @@ export const getSchemeDetail = createAsyncThunk(
           navigate("/");
         }
       } else if (detail.data.role === "admin") {
-        toast.warn("You need to log out of admin2");
+        toast.warn("You need to log out of admin");
         navigate("/admin");
       } else {
         return detail.data;

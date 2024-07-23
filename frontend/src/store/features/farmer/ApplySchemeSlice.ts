@@ -33,18 +33,19 @@ export const checkSchemeApplied = createAsyncThunk(
         }
       );
       if (!detail.data.login) {
-        toast.warn("You need to login");
-        navigate("/login");
+        if (detail.data === "noSchemeFound") {
+          navigate("/");
+          toast.warn("No such scheme is available");
+        } else {
+          navigate("/login");
+          toast.warn("You need to login");
+        }
       } else if (detail.data.role === "admin") {
         toast.warn("You need to log out of admin");
         navigate("/admin");
       } else if (detail.data === "noSchemeFound") {
         toast.warn("No such scheme is available");
-        if (detail.data.role === "admin") {
-          navigate("/admin");
-        } else {
-          navigate("/");
-        }
+        navigate("/");
       } else if (detail.data.applied) {
         toast.warn(
           "You have already applied and the Application is under processing"

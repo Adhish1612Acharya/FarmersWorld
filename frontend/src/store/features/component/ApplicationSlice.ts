@@ -51,32 +51,37 @@ const initialState: statObj = {
 export const applyScheme = createAsyncThunk(
   "/apply",
   async ({ imageFile, id, navigate }: payLoad, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
-    if (!state.application.textInptError) {
-      thunkAPI.dispatch(setSubmitLoad(true));
-      let data = new FormData();
-      data.append("adhaar", state.application.value.adhaar);
-      data.append("farmersId", state.application.value.farmersId);
-      data.append("image", imageFile);
-      console.log(data);
-      const response = await axios.post(`/api/schemes/${id}/apply`, data, {
-        withCredentials: true,
-      });
-      if (response.data === "notLogin") {
-        toast.warn("You must be Logged in");
-        navigate("/login");
-      } else if (response.data.role === "roleIsAdmin") {
-        toast.error("Access denied");
-        navigate(`/admin`);
-      } else if (response.data === "alreadyApplied") {
-        toast.warn(
-          "You have already applied and the Application is under processing"
-        );
-        navigate(`/schemes/${id}`);
-      } else if (response.data.status === "applied") {
-        toast.success("Applied successfully");
-        navigate(`/schemes/applications/${response.data.id}`);
+    try {
+      const state = thunkAPI.getState() as RootState;
+      if (!state.application.textInptError) {
+        thunkAPI.dispatch(setSubmitLoad(true));
+        let data = new FormData();
+        data.append("adhaar", state.application.value.adhaar);
+        data.append("farmersId", state.application.value.farmersId);
+        data.append("image", imageFile);
+        const response = await axios.post(`/api/schemes/${id}/apply`, data, {
+          withCredentials: true,
+        });
+        if (response.data === "notLogin") {
+          toast.warn("You must be Logged in");
+          navigate("/login");
+        } else if (response.data.role === "roleIsAdmin") {
+          toast.error("Access denied");
+          navigate(`/admin`);
+        } else if (response.data === "alreadyApplied") {
+          toast.warn(
+            "You have already applied and the Application is under processing"
+          );
+          navigate(`/schemes/${id}`);
+        } else if (response.data.status === "applied") {
+          toast.success("Applied successfully");
+          navigate(`/schemes/applications/${response.data.id}`);
+        }
       }
+    } catch (err) {
+      console.log(err);
+      toast.error("Some error occured try refreshing the page");
+      navigate("/");
     }
   }
 );

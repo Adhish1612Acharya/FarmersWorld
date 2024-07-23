@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const applicationSchema = z.object({
-  adhaar: z.string().regex(/^d{12}$/, "Enter a valid 12 digit Number"),
-  farmersId: z.string().regex(/^d{12}$/, "Enter a valid 12 digit Number"),
+  adhaar: z.string().regex(/^\d{12}$/, "Enter a valid 12 digit Number"),
+  farmersId: z.string().regex(/^\d{12}$/, "Enter a valid 12 digit Number"),
 });
 
 export const signUpFormValidation = z.object({

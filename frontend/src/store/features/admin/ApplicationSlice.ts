@@ -63,6 +63,7 @@ export const ApplicationSlice = createSlice({
     });
     builder.addCase(getApplications.fulfilled, (state, action) => {
       if (action.payload !== undefined) {
+        console.log(action.payload);
         state.applications = action.payload.applications;
         state.navLogin = true;
         state.showComponent = true;

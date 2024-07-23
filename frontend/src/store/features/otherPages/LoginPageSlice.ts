@@ -76,11 +76,11 @@ export const login = createAsyncThunk(
           withCredentials: true,
         });
         if (response.data.loginStatus === "successLogin") {
-          toast.success("Logged in successfully ");
           navigate(`${response.data.redirect}`);
+          toast.success("Logged in successfully ");
         } else if (response.data.loginStatus === "directLogin") {
-          toast.success("Logged in successfully ");
           navigate(`${response.data.redirect}`);
+          toast.success("Logged in successfully ");
         } else if (response.data === "failureLogin") {
           toast.error("Either username or password is not valid");
           return response.data;

@@ -43,7 +43,7 @@ const LoginForm: FC<loginFormProps> = ({ route }) => {
   return (
     <ThemeProvider theme={theme}>
       <div className="form">
-        <Navbar login={false} />
+        <Navbar login={false} navigate={navigate} />
         <Form
           onSubmit={(event) => {
             preventFormDefault(event, route);

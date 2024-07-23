@@ -13,6 +13,7 @@ import { Strategy as localStrategy } from "passport-local";
 import cors from "cors";
 import errorHandler from "./types/errorHandler";
 import path from "path";
+import MongoStore from "connect-mongo";
 
 import Farmer from "./models/Farmers";
 import Admin from "./models/Admin";
@@ -27,22 +28,35 @@ import loginCheckController from "./controllers/common";
 
 const port = 8080;
 
-const DBPort = "mongodb://127.0.0.1:27017/farmersworld";
+const DB_URL = process.env.DB_PORT || "mongodb://127.0.0.1:27017/farmersworld";
 
 main()
   .then(() => {
-    console.log("DB connected");
+    console.log("DB connected", process.env.DB_PORT);
   })
   .catch((err) => {
     console.log(err);
   });
 
 async function main() {
-  await mongoose.connect(DBPort);
+  await mongoose.connect(DB_URL);
 }
 
+const store = MongoStore.create({
+  mongoUrl: DB_URL,
+  crypto: {
+    secret: process.env.SECRET || "My secret code",
+  },
+  touchAfter: 24 * 3600,
+});
+
+store.on("error", (err) => {
+  console.log("Error occured in mongo session store", err);
+});
+
 const sessionOptions = {
-  secret: "MySecretKey",
+  store,
+  secret: process.env.SECRET || "MySecret",
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -118,8 +132,9 @@ app.use("/api", commonRouter); // route to check login for auth page along with 
 // -------------------Deployment------------------//
 
 const __dirname1 = path.resolve();
+console.log(process.env.NODE_ENV);
 
-if (process.env.NODE_ENV === "local") {
+if (process.env.NODE_ENV === undefined) {
   app.use(express.static(path.join(__dirname1, "/frontend/dist")));
 
   app.get("*", (req, res) => {

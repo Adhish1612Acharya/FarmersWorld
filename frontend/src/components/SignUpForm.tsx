@@ -51,7 +51,7 @@ const SignUpForm: FC<signUpFormProps> = ({ route }) => {
     <ThemeProvider theme={theme}>
       <>
         <div className="form">
-          <Navbar login={false} />
+          <Navbar login={false} navigate={navigate} />
           <h2>SignUp</h2>
           <Form
             onSubmit={(event) => {

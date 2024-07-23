@@ -79,7 +79,7 @@ export const updateApplicationStatus = createAsyncThunk(
       toast.success("Application Approved");
       navigate(`/admin/schemes/${schemeId}/applications`);
     } else if (response.data === "rejected") {
-      toast.error("Application Rejected");
+      toast.warn("Application Rejected");
       navigate(`/admin/schemes/${schemeId}/applications`);
     }
   }
