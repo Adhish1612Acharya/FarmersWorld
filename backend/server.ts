@@ -134,7 +134,7 @@ app.use("/api", commonRouter); // route to check login for auth page along with 
 const __dirname1 = path.resolve();
 console.log(process.env.NODE_ENV);
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "local") {
   app.use(express.static(path.join(__dirname1, "/frontend/dist")));
 
   app.get("*", (req, res) => {
