@@ -36,9 +36,7 @@ export const getSchemesData = createAsyncThunk(
   async (navigate: NavigateFunction, thunkAPI) => {
     try {
       thunkAPI.dispatch(setFilterStyle({ filter: "", value: false }));
-      const schemes = await axios.post(`${server}/api/schemes`, {
-        withCredentials: true,
-      });
+      const schemes = await axios.get(`${server}/api/schemes`);
       if (window.location.pathname === "/admin") {
         if (!schemes.data.login) {
           toast.warn("You must Login");
@@ -72,9 +70,7 @@ export const handleFilterClick = createAsyncThunk(
     try {
       let schemes: any;
 
-      schemes = await axios.post(`${server}/api/schemes/filter/${filter}`, {
-        withCredentials: true,
-      });
+      schemes = await axios.get(`${server}/api/schemes/filter/${filter}`);
 
       return schemes?.data;
     } catch (err) {
