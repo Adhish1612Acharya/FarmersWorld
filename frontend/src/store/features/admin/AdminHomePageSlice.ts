@@ -30,7 +30,7 @@ export const getSchemesData = createAsyncThunk(
   "/getSchemes",
   async (navigate: NavigateFunction, thunkAPI) => {
     try {
-      const schemes = await axios.get(`${server}/api/schemes`, {
+      const schemes = await axios.post(`${server}/api/schemes`, {
         withCredentials: true,
       });
       if (!schemes.data.login) {
@@ -56,7 +56,7 @@ export const handleFilterClick = createAsyncThunk(
     try {
       let schemes: any;
 
-      schemes = await axios.get(`${server}/api/schemes/filter/${filter}`, {
+      schemes = await axios.post(`${server}/api/schemes/filter/${filter}`, {
         withCredentials: true,
       });
 

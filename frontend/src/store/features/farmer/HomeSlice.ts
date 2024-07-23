@@ -36,7 +36,7 @@ export const getSchemesData = createAsyncThunk(
   async (navigate: NavigateFunction, thunkAPI) => {
     try {
       thunkAPI.dispatch(setFilterStyle({ filter: "", value: false }));
-      const schemes = await axios.get(`${server}/api/schemes`, {
+      const schemes = await axios.post(`${server}/api/schemes`, {
         withCredentials: true,
       });
       if (window.location.pathname === "/admin") {
@@ -72,7 +72,7 @@ export const handleFilterClick = createAsyncThunk(
     try {
       let schemes: any;
 
-      schemes = await axios.get(`${server}/api/schemes/filter/${filter}`, {
+      schemes = await axios.post(`${server}/api/schemes/filter/${filter}`, {
         withCredentials: true,
       });
 

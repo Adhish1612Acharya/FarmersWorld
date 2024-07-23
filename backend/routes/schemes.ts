@@ -14,11 +14,11 @@ import multer from "multer";
 const upload = multer({ storage });
 const cloudinary = require("../cloudConfig").cloudinary;
 
-router.get("/", wrapAsync(schemesController.allSchemes));
+router.post("/", wrapAsync(schemesController.allSchemes));
 
 router.post("/:id", wrapAsync(schemesController.singleScheme));
 
-router.get("/filter/:filter", wrapAsync(schemesController.filterSchemeDetail));
+router.post("/filter/:filter", wrapAsync(schemesController.filterSchemeDetail));
 
 router.post(
   "/:id/apply",
