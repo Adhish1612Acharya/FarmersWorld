@@ -13,7 +13,7 @@ const ApplStatusBtn: FC<appliStatusProps> = ({ color, status, ht }) => {
           width: "max-content",
           padding: "0.5rem",
           backgroundColor: color,
-          marginLeft: "1rem",
+          marginLeft: "2rem",
         }}
       >
         <b style={{ whiteSpace: "nowrap", display: "inline-block" }}>

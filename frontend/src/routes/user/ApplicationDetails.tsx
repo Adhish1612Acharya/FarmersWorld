@@ -49,15 +49,18 @@ const ApplicationDetails: FC = () => {
               admin={false}
               homePage={false}
             />
-            <h3 style={{ display: "flex", marginTop: "1rem" }}>
-              Application Status :{" "}
-              {
-                <ApplStatusBtn
-                  color={statusBtn.color}
-                  status={statusBtn.status}
-                />
-              }
-            </h3>
+            <div className="status" style={{ margin: "2rem" }}>
+              <h3 style={{ display: "flex", marginTop: "1rem" }}>
+                Application Status :{" "}
+                {
+                  <ApplStatusBtn
+                    color={statusBtn.color}
+                    status={statusBtn.status}
+                  />
+                }
+              </h3>
+            </div>
+
             <DetailsTable
               adhaarNumber={
                 typeof applDetails !== "string" ? applDetails.adhaar : ""

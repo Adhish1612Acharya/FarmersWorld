@@ -60,40 +60,42 @@ const ApplicationDetail: FC = () => {
             />
             {!loading ? (
               <>
-                <Button
-                  onClick={() =>
-                    dispatch(
-                      updateApplicationStatus({
-                        schemeId: schemeId,
-                        applicationId: applicationId,
-                        status: "approved",
-                        navigate: navigate,
-                      })
-                    )
-                  }
-                  variant="outlined"
-                  color="success"
-                  style={{ margin: "1rem" }}
-                >
-                  Approve Application
-                </Button>
-                <Button
-                  onClick={() =>
-                    dispatch(
-                      updateApplicationStatus({
-                        schemeId: schemeId,
-                        applicationId: applicationId,
-                        status: "rejected",
-                        navigate: navigate,
-                      })
-                    )
-                  }
-                  variant="outlined"
-                  color="error"
-                  style={{ margin: "1rem" }}
-                >
-                  Reject Application
-                </Button>
+                <div className="approvalBtns" style={{ display: "flex" }}>
+                  <Button
+                    onClick={() =>
+                      dispatch(
+                        updateApplicationStatus({
+                          schemeId: schemeId,
+                          applicationId: applicationId,
+                          status: "approved",
+                          navigate: navigate,
+                        })
+                      )
+                    }
+                    variant="outlined"
+                    color="success"
+                    style={{ margin: "1rem" }}
+                  >
+                    Approve Application
+                  </Button>
+                  <Button
+                    onClick={() =>
+                      dispatch(
+                        updateApplicationStatus({
+                          schemeId: schemeId,
+                          applicationId: applicationId,
+                          status: "rejected",
+                          navigate: navigate,
+                        })
+                      )
+                    }
+                    variant="outlined"
+                    color="error"
+                    style={{ margin: "1rem" }}
+                  >
+                    Reject Application
+                  </Button>
+                </div>
               </>
             ) : (
               <LoadingButton
