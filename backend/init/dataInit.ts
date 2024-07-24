@@ -1,7 +1,8 @@
 import sampleData from "./data";
 import Scheme from "../models/Scheme";
 import mongoose from "mongoose";
-const DB_URL = "mongodb://127.0.0.1:27017/farmersworld";
+const DB_URL =
+  "mongodb+srv://Adhish:kCxYFhGcZCrzaD1u@cluster0.pndh2oh.mongodb.net/Farmersworld?retryWrites=true&w=majority&appName=Cluster0";
 
 main()
   .then(() => {
@@ -17,6 +18,7 @@ async function main() {
 }
 
 async function insertData() {
+  await Scheme.deleteMany({}).then(() => console.log("deleted"));
   let scheme = await Scheme.insertMany(sampleData)
     .then(() => {
       console.log("Data inserted");
@@ -24,4 +26,4 @@ async function insertData() {
     .catch((err) => console.log(err));
 }
 
-// insertData();
+insertData();

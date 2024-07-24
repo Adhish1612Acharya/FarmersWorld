@@ -69,15 +69,15 @@ const sessionOptions = {
 app.use(bodyParser.json());
 app.use(session(sessionOptions));
 
-// const corsOptions = {
-//   origin: ["http://localhost:5173"],
-//   methods: ["GET", "PUT", "PATCH", "POST", "DELETE"],
-//   credentials: true,
-// };
+const corsOptions = {
+  origin: ["http://localhost:5173"],
+  methods: ["GET", "PUT", "PATCH", "POST", "DELETE"],
+  credentials: true,
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
-// app.options("*", cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 app.use(passport.initialize());
 app.use(passport.session());
