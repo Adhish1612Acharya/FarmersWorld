@@ -49,127 +49,158 @@ const UserApplications: FC = () => {
 
             {!filterLoad ? (
               <>
-                <div className="btns">
-                  <h2 style={{ marginTop: "3rem" }}>
-                    {applicationType.toUpperCase()} APPLICATIONS
-                  </h2>
-                  <Badge
-                    badgeContent={statNo.all}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                    color="primary"
-                    showZero
-                  >
-                    <Button
-                      onClick={() => dispatch(getUserApplications(navigate))}
-                      variant="contained"
-                      id="all"
-                      style={{
-                        marginRight: "1rem",
-                        color: btnId === "all" ? "black" : "",
-                        backgroundColor:
-                          clicked && btnId === "all" ? "#BDBDBD" : "orange",
+                <h2
+                  style={{
+                    marginTop: "3rem",
+                    wordWrap: "break-word",
+                    maxWidth: "100%",
+                  }}
+                >
+                  {applicationType.toUpperCase()} APPLICATIONS
+                </h2>
+                <div
+                  className="btns"
+                  style={{
+                    maxWidth: "100%",
+                    height: "max-content",
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    textAlign: "justify",
+                    transform: "scale(0.9)",
+                  }}
+                >
+                  <div className="btn1" style={{ margin: "1rem" }}>
+                    <Badge
+                      badgeContent={statNo.all}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
                       }}
-                      disabled={clicked && btnId === "all" ? true : false}
+                      color="primary"
+                      showZero
                     >
-                      All Applications
-                    </Button>
-                  </Badge>
-                  <Badge
-                    badgeContent={statNo.approved}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                    color="primary"
-                    showZero
-                  >
-                    <Button
-                      onClick={() =>
-                        dispatch(
-                          getFilterApplications({
-                            navigate,
-                            filter: "approved",
-                          })
-                        )
-                      }
-                      variant="contained"
-                      color="success"
-                      style={{
-                        marginRight: "1rem",
-                        color: btnId === "approved" ? "black" : "",
+                      <Button
+                        onClick={() => dispatch(getUserApplications(navigate))}
+                        variant="contained"
+                        id="all"
+                        style={{
+                          marginRight: "1rem",
+                          color: btnId === "all" ? "black" : "",
+                          backgroundColor:
+                            clicked && btnId === "all" ? "#BDBDBD" : "orange",
+                        }}
+                        disabled={clicked && btnId === "all" ? true : false}
+                      >
+                        All Applications
+                      </Button>
+                    </Badge>
+                  </div>
+                  <div className="btn2" style={{ margin: "1rem" }}>
+                    <Badge
+                      badgeContent={statNo.approved}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
                       }}
-                      disabled={clicked && btnId === "approved" ? true : false}
+                      color="primary"
+                      showZero
                     >
-                      Approved
-                    </Button>
-                  </Badge>
-                  <Badge
-                    badgeContent={statNo.rejected}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                    color="primary"
-                    showZero
-                  >
-                    <Button
-                      onClick={() =>
-                        dispatch(
-                          getFilterApplications({
-                            navigate,
-                            filter: "rejected",
-                          })
-                        )
-                      }
-                      variant="contained"
-                      color="error"
-                      style={{
-                        marginRight: "1rem",
-                        color: btnId === "rejected" ? "black" : "",
+                      <Button
+                        onClick={() =>
+                          dispatch(
+                            getFilterApplications({
+                              navigate,
+                              filter: "approved",
+                            })
+                          )
+                        }
+                        variant="contained"
+                        color="success"
+                        style={{
+                          marginRight: "1rem",
+                          color: btnId === "approved" ? "black" : "",
+                        }}
+                        disabled={
+                          clicked && btnId === "approved" ? true : false
+                        }
+                      >
+                        Approved
+                      </Button>
+                    </Badge>
+                  </div>
+                  <div className="btn3">
+                    <Badge
+                      badgeContent={statNo.rejected}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
                       }}
-                      disabled={clicked && btnId === "rejected" ? true : false}
+                      color="primary"
+                      showZero
                     >
-                      Rejected
-                    </Button>
-                  </Badge>
-                  <Badge
-                    badgeContent={statNo.processing}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "left",
-                    }}
-                    color="primary"
-                    showZero
-                  >
-                    <Button
-                      onClick={() =>
-                        dispatch(
-                          getFilterApplications({
-                            navigate,
-                            filter: "processing",
-                          })
-                        )
-                      }
-                      variant="contained"
-                      color="secondary"
-                      style={{
-                        marginRight: "1rem",
-                        color: btnId === "processing" ? "black" : "",
+                      <Button
+                        onClick={() =>
+                          dispatch(
+                            getFilterApplications({
+                              navigate,
+                              filter: "rejected",
+                            })
+                          )
+                        }
+                        variant="contained"
+                        color="error"
+                        style={{
+                          marginRight: "1rem",
+                          color: btnId === "rejected" ? "black" : "",
+                        }}
+                        disabled={
+                          clicked && btnId === "rejected" ? true : false
+                        }
+                      >
+                        Rejected
+                      </Button>
+                    </Badge>
+                  </div>
+                  <div className="btn4">
+                    <Badge
+                      badgeContent={statNo.processing}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "left",
                       }}
-                      disabled={
-                        clicked && btnId === "processing" ? true : false
-                      }
+                      color="primary"
+                      showZero
                     >
-                      Processing
-                    </Button>
-                  </Badge>
+                      <Button
+                        onClick={() =>
+                          dispatch(
+                            getFilterApplications({
+                              navigate,
+                              filter: "processing",
+                            })
+                          )
+                        }
+                        variant="contained"
+                        color="secondary"
+                        style={{
+                          marginRight: "1rem",
+                          color: btnId === "processing" ? "black" : "",
+                        }}
+                        disabled={
+                          clicked && btnId === "processing" ? true : false
+                        }
+                      >
+                        Processing
+                      </Button>
+                    </Badge>
+                  </div>
                 </div>
 
                 {applications?.length === 0 ? (
-                  <h1>
+                  <h1 style={{ wordWrap: "break-word", maxWidth: "100%" }}>
                     NO APPLICATIONS{" "}
                     {applicationType === "processing"
                       ? "UNDER PROCESSING"

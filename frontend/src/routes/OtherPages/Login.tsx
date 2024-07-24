@@ -33,70 +33,76 @@ const Login: FC = () => {
               homePage={false}
               navigate={navigate}
             />
-            <h1>
-              Login as{" "}
-              {apiRoute === "farmers/login" ? (
-                <span>Farmer</span>
-              ) : (
-                <span>Admin</span>
-              )}
-            </h1>
-            {apiRoute === "farmers/login" ? (
-              <>
-                <Button
-                  variant="contained"
-                  disabled
-                  style={{
-                    backgroundColor: "#1976d2",
-                    color: "white",
-                    margin: "1rem",
-                  }}
-                >
-                  <b>Farmer</b>
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    dispatch(setApiRoute("admin/login"));
-                  }}
-                  style={{
-                    backgroundColor: "#BDBDBD",
-                    color: "black",
-                    margin: "1rem",
-                  }}
-                >
-                  Admin
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    dispatch(setApiRoute("farmers/login"));
-                  }}
-                  style={{
-                    backgroundColor: "#BDBDBD",
-                    color: "black",
-                    margin: "1rem",
-                  }}
-                >
-                  Farmer
-                </Button>
-                <Button
-                  variant="contained"
-                  disabled
-                  style={{
-                    backgroundColor: "#1976d2",
-                    color: "white",
-                    margin: "1rem",
-                  }}
-                >
-                  <b>Admin</b>
-                </Button>
-              </>
-            )}
-            <LoginForm route={apiRoute} />
+            <div className="loginForm">
+              <div className="heading">
+                <h1>
+                  Login as{" "}
+                  {apiRoute === "farmers/login" ? (
+                    <span>Farmer</span>
+                  ) : (
+                    <span>Admin</span>
+                  )}
+                </h1>
+              </div>
+              <div className="buttons">
+                {apiRoute === "farmers/login" ? (
+                  <>
+                    <Button
+                      variant="contained"
+                      disabled
+                      style={{
+                        backgroundColor: "#1976d2",
+                        color: "white",
+                        margin: "1rem",
+                      }}
+                    >
+                      <b>Farmer</b>
+                    </Button>
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        dispatch(setApiRoute("admin/login"));
+                      }}
+                      style={{
+                        backgroundColor: "#BDBDBD",
+                        color: "black",
+                        margin: "1rem",
+                      }}
+                    >
+                      Admin
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        dispatch(setApiRoute("farmers/login"));
+                      }}
+                      style={{
+                        backgroundColor: "#BDBDBD",
+                        color: "black",
+                        margin: "1rem",
+                      }}
+                    >
+                      Farmer
+                    </Button>
+                    <Button
+                      variant="contained"
+                      disabled
+                      style={{
+                        backgroundColor: "#1976d2",
+                        color: "white",
+                        margin: "1rem",
+                      }}
+                    >
+                      <b>Admin</b>
+                    </Button>
+                  </>
+                )}
+              </div>
+              <LoginForm route={apiRoute} />
+            </div>
           </>
         ) : (
           <CircularProgress />

@@ -49,7 +49,7 @@ const ApplicationDetails: FC = () => {
               admin={false}
               homePage={false}
             />
-            <h3 style={{ display: "flex" }}>
+            <h3 style={{ display: "flex", marginTop: "1rem" }}>
               Application Status :{" "}
               {
                 <ApplStatusBtn

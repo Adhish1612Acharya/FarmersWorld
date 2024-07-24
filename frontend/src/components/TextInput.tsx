@@ -3,6 +3,7 @@ import { ChangeEvent, FC, KeyboardEvent } from "react";
 import { textInputStatProps } from "../types/componentsTypes/TextInput";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../theme";
+import "../styles/Form.css";
 
 const TextInput: FC<textInputStatProps> = ({
   labelText,
@@ -20,8 +21,11 @@ const TextInput: FC<textInputStatProps> = ({
   };
   return (
     <ThemeProvider theme={theme}>
-      <div className="textField" style={{ margin: "2rem" }}>
-        <label htmlFor={name} style={{ marginRight: "1rem" }}>
+      <div className="textField">
+        <label
+          htmlFor={name}
+          style={{ marginRight: "1rem", fontWeight: "bolder" }}
+        >
           {outerLabel}
         </label>
         <TextField
@@ -35,6 +39,7 @@ const TextInput: FC<textInputStatProps> = ({
           error={!errors?.valid}
           helperText={errors?.errMsg}
           onKeyDown={handleKeyDown}
+          style={{ maxWidth: "100%" }}
         />
       </div>
     </ThemeProvider>

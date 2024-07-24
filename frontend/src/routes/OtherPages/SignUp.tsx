@@ -11,6 +11,7 @@ import {
 } from "../../store/features/otherPages/SignUpPageSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import theme from "../../theme";
+import "../../styles/Form.css";
 
 const SignUp: FC = () => {
   let navigate = useNavigate();
@@ -33,69 +34,75 @@ const SignUp: FC = () => {
               homePage={false}
               navigate={navigate}
             />
-            <h1>
-              SignUp as{" "}
-              {apiRoute === "farmers/signUp" ? (
-                <span>Farmer</span>
-              ) : (
-                <span>Admin</span>
-              )}
-            </h1>
-            {apiRoute === "farmers/signUp" ? (
-              <>
-                <Button
-                  variant="contained"
-                  style={{
-                    backgroundColor: "#1976d2",
-                    color: "white",
-                    margin: "1rem",
-                  }}
-                  disabled
-                >
-                  <b>Farmer</b>
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{
-                    backgroundColor: "#BDBDBD",
-                    color: "black",
-                    margin: "1rem",
-                  }}
-                  onClick={() => {
-                    dispatch(setApiRoute("admin/signUp"));
-                  }}
-                >
-                  Admin
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    dispatch(setApiRoute("farmers/signUp"));
-                  }}
-                  style={{
-                    backgroundColor: "#BDBDBD",
-                    color: "black",
-                    margin: "1rem",
-                  }}
-                >
-                  Farmer
-                </Button>
-                <Button
-                  variant="contained"
-                  disabled
-                  style={{
-                    backgroundColor: "#1976d2",
-                    color: "white",
-                    margin: "1rem",
-                  }}
-                >
-                  <b>Admin</b>
-                </Button>
-              </>
-            )}
+            <div className="loginForm">
+              <div className="heading">
+                <h1>
+                  SignUp as{" "}
+                  {apiRoute === "farmers/signUp" ? (
+                    <span>Farmer</span>
+                  ) : (
+                    <span>Admin</span>
+                  )}
+                </h1>
+              </div>
+              <div className="buttons">
+                {apiRoute === "farmers/signUp" ? (
+                  <>
+                    <Button
+                      variant="contained"
+                      style={{
+                        backgroundColor: "#1976d2",
+                        color: "white",
+                        margin: "1rem",
+                      }}
+                      disabled
+                    >
+                      <b>Farmer</b>
+                    </Button>
+                    <Button
+                      variant="contained"
+                      style={{
+                        backgroundColor: "#BDBDBD",
+                        color: "black",
+                        margin: "1rem",
+                      }}
+                      onClick={() => {
+                        dispatch(setApiRoute("admin/signUp"));
+                      }}
+                    >
+                      Admin
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        dispatch(setApiRoute("farmers/signUp"));
+                      }}
+                      style={{
+                        backgroundColor: "#BDBDBD",
+                        color: "black",
+                        margin: "1rem",
+                      }}
+                    >
+                      Farmer
+                    </Button>
+                    <Button
+                      variant="contained"
+                      disabled
+                      style={{
+                        backgroundColor: "#1976d2",
+                        color: "white",
+                        margin: "1rem",
+                      }}
+                    >
+                      <b>Admin</b>
+                    </Button>
+                  </>
+                )}
+              </div>
+            </div>
             <SignUpForm route={apiRoute} />
           </>
         ) : (

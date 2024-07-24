@@ -13,6 +13,7 @@ import {
 } from "../types/componentsTypes/Details";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../theme";
+import "../styles/Table.css";
 
 const DetailsTable: FC<detailsTablePops> = ({
   applicationId,
@@ -36,8 +37,8 @@ const DetailsTable: FC<detailsTablePops> = ({
 
   return (
     <ThemeProvider theme={theme}>
-      <TableContainer component={Paper} elevation={8}>
-        <Table sx={{ minWidth: 650 }} aria-label="caption table">
+      <TableContainer component={Paper} className="detailTable" elevation={8}>
+        <Table sx={{ width: "100%" }} aria-label="caption table">
           {!admin ? (
             <caption>
               For Queries Contact :{" "}

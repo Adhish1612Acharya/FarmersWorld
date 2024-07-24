@@ -1,21 +1,50 @@
-.label{
-    font-size: large;
-    margin : 0px 5px 0px 0px;
-    font-weight: 700;
-    margin:3rem;
+.label {
+  font-size: large;
+  margin: 0px 5px 0px 0px;
+  font-weight: 700;
+  margin: 3rem;
 }
 
-.form{
-    width:max-content;
-    height: max-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.form {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.form-elements{
-    margin: 2rem;
-    text-align: center;
+.form-elements {
+  margin: 2rem;
+  text-align: center;
+}
+
+.loginForm {
+  max-width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: max-content;
+  text-align: center;
+}
+
+.heading {
+  width: 100%;
+}
+
+.textField {
+  margin: 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 0px) and (max-width: 700px) {
+  .textField {
+    flex-direction: column !important;
+  }
 }

@@ -22,6 +22,7 @@ import {
   validation,
 } from "../store/features/component/ApplicationSlice";
 import { LoadingButton } from "@mui/lab";
+import "../styles/Form.css";
 
 const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
   const dispatch = useAppDispatch();
@@ -68,12 +69,12 @@ const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
   return (
     <ThemeProvider theme={theme}>
       <div
-        className="application"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-        }}
+        className="form"
+        // style={{
+        //   display: "flex",
+        //   flexDirection: "column",
+        //   justifyContent: "space-evenly",
+        // }}
       >
         <Form onSubmit={preventFormDefault} encType="multipart/form-data">
           <TextInput

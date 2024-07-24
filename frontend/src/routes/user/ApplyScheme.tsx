@@ -46,7 +46,9 @@ const ApplyScheme: FC = () => {
               homePage={false}
               navigate={navigate}
             />
-            <h1>Application for : {scheme ? scheme.heading : null}</h1>
+            <h1 style={{ wordWrap: "break-word" }}>
+              Application for : {scheme ? scheme.heading : null}
+            </h1>
             <Application schemeId={schemeId} navigate={navigate} />
           </>
         ) : (

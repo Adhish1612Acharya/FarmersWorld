@@ -42,49 +42,50 @@ const LoginForm: FC<loginFormProps> = ({ route }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="form">
-        <Navbar login={false} navigate={navigate} />
-        <Form
-          onSubmit={(event) => {
-            preventFormDefault(event, route);
-          }}
-        >
-          <TextInput
-            typeValue={"text"}
-            value={value.username}
-            name="username"
-            labelText={"Enter username"}
-            outerLabel={"Username"}
-            setForm={setInputData}
-            errors={error.username}
-          />
+      <>
+        <div className="form">
+          <Form
+            onSubmit={(event) => {
+              preventFormDefault(event, route);
+            }}
+          >
+            <TextInput
+              typeValue={"text"}
+              value={value.username}
+              name="username"
+              labelText={"Enter username"}
+              outerLabel={"Username"}
+              setForm={setInputData}
+              errors={error.username}
+            />
 
-          <TextInput
-            typeValue={"password"}
-            value={value.password}
-            name="password"
-            labelText={"Enter password"}
-            outerLabel={"Password"}
-            setForm={setInputData}
-            errors={error.password}
-          />
+            <TextInput
+              typeValue={"password"}
+              value={value.password}
+              name="password"
+              labelText={"Enter password"}
+              outerLabel={"Password"}
+              setForm={setInputData}
+              errors={error.password}
+            />
 
-          {!loginLoad ? (
-            <Button variant="contained" type="submit">
-              Login
-            </Button>
-          ) : (
-            <LoadingButton
-              size="small"
-              loading={true}
-              variant="contained"
-              disabled
-            >
-              <span>disabled</span>
-            </LoadingButton>
-          )}
-        </Form>
-      </div>
+            {!loginLoad ? (
+              <Button variant="contained" type="submit">
+                Login
+              </Button>
+            ) : (
+              <LoadingButton
+                size="small"
+                loading={true}
+                variant="contained"
+                disabled
+              >
+                <span>disabled</span>
+              </LoadingButton>
+            )}
+          </Form>
+        </div>
+      </>
     </ThemeProvider>
   );
 };
