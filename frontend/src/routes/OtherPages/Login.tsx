@@ -1,9 +1,9 @@
 import NavBar from "../../components/NavBar";
 import LoginForm from "../../components/LoginForm";
-import { Button, ThemeProvider } from "@mui/material";
+import { Button, Grid, ThemeProvider } from "@mui/material";
 import { CircularProgress } from "@mui/material";
 import { FC, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { server } from "../../server";
 import {
   checkLogin,
@@ -102,6 +102,11 @@ const Login: FC = () => {
                 )}
               </div>
               <LoginForm route={apiRoute} />
+              <Grid item style={{ marginTop: "1rem" }}>
+                <Link to="/signUp" style={{ textDecoration: "underline" }}>
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
             </div>
           </>
         ) : (
