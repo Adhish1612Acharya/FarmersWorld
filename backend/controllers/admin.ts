@@ -73,6 +73,7 @@ export const getApplicationDetails = async (req: Request, res: Response) => {
   let { applicationId } = req.params;
   let application = await Application.findById(applicationId)
     .populate("schemeName")
+    .populate("applicant")
     .catch((err) => {
       console.log("Application not found error");
       console.log(err);
@@ -105,17 +106,21 @@ export const applicationApprovement = async (req: Request, res: Response) => {
       res.json("approved");
     }
   } else if (status === "rejected") {
+    const { rejectReason } = req.body;
+    console.log("rejectReasonControoler", rejectReason);
     application = await Application.findByIdAndUpdate(
       applicationId,
       {
         processing: false,
         approved: false,
+        rejectReason: rejectReason,
       },
-      { new: true } // This option returns the updated document
+      { new: true }
     ).catch((err) => {
       console.log("Application not found");
       console.log(err);
     });
+    console.log(application);
     if (!application) {
       res.json("applicationNotFound");
     } else {

@@ -27,9 +27,8 @@ export const getSchemeDetail = createAsyncThunk(
   "/getSchemeDetail",
   async ({ navigate, id }: payLoad, thunkAPI) => {
     try {
-      const detail = await axios.post(
-        `/api/schemes/${id}`,
-        { route: window.location.pathname },
+      const detail = await axios.get(
+        `/api/schemes/${id}?route=${window.location.pathname}`,
         {
           withCredentials: true,
         }

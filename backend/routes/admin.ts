@@ -5,6 +5,7 @@ import {
   validateLoginForm,
   validateSignUpForm,
   UserAdminRole,
+  validateRejectedReason,
 } from "../middlewares";
 import adminController from "../controllers/admin";
 
@@ -35,10 +36,11 @@ router.get(
   wrapAsync(adminController.getApplicationDetails)
 );
 
+//route to approve or reject applications
 router.put(
-  //route to approve or reject applications
   "/schemes/applications/:applicationId/:status",
   UserAdminRole,
+  validateRejectedReason,
   wrapAsync(adminController.applicationApprovement)
 );
 

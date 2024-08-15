@@ -5,7 +5,10 @@ import SchemeCard from "../../components/SchemeCard";
 import { useNavigate } from "react-router-dom";
 import { server } from "../../server";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { getSchemesData } from "../../store/features/farmer/HomeSlice";
+import {
+  getSchemesData,
+  handleFilterClick,
+} from "../../store/features/farmer/HomeSlice";
 import theme from "../../theme";
 
 const AdminHomePage: FC = () => {
@@ -15,10 +18,22 @@ const AdminHomePage: FC = () => {
   let schemes = useAppSelector((state) => state.home.schemes);
   let navLogin = useAppSelector((state) => state.home.navLogin);
   let filterLoad = useAppSelector((state) => state.home.filterLoad);
-  let count = useAppSelector((state) => state.adminHomePage.count);
+  let count = useAppSelector((state) => state.home.count);
 
   useEffect(() => {
-    dispatch(getSchemesData(navigate));
+    const storageData: string | null = localStorage.getItem("filter");
+    let parsedData: string = storageData ? JSON.parse(storageData) : "";
+    console.log(parsedData);
+    if (parsedData) {
+      dispatch(
+        handleFilterClick({
+          navigate,
+          filter: parsedData,
+        })
+      );
+    } else {
+      dispatch(getSchemesData(navigate));
+    }
   }, []);
 
   return (
@@ -56,6 +71,7 @@ const AdminHomePage: FC = () => {
                         home={false}
                         isApplication={false}
                         count={Array.isArray(count) ? count[index] : 0}
+                        admin={true}
                       />
                     </a>
                   );

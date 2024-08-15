@@ -30,4 +30,5 @@ export interface schemeCardProps {
   isApplication: boolean;
   statBtn?: statBtnObj;
   count?: number | 0;
+  admin?: boolean;
 }

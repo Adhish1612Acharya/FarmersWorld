@@ -1,11 +1,23 @@
 .detailTable {
-  min-width: 100%;
-  width: 700px !important;
+  min-width: 50%;
+  width: 50% !important;
+  margin: 0rem auto !important;
 }
 
 @media (min-width: 0px) and (max-width: 700px) {
   .detailTable {
     max-width: 100% !important;
     width: 100% !important;
+    margin: auto 0rem !important;
   }
+}
+
+.status {
+  width: 100%;
+  margin-top: 64px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  /* display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; */
 }

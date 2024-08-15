@@ -15,7 +15,7 @@ cloudinary.config({
 export const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "farmersWorld_DEV",
+    folder: "farmersWorld2_DEV",
     allowedFormats: ["png", "jpg", "jpeg"],
   } as CustomParams,
 });

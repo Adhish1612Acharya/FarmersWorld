@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getSchemesData } from "../../store/features/farmer/HomeSlice";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../../theme";
+import { handleFilterClick } from "../../store/features/farmer/HomeSlice";
 
 const Home: FC = () => {
   const navigate = useNavigate();
@@ -19,7 +20,18 @@ const Home: FC = () => {
   let filterLoad = useAppSelector((state) => state.home.filterLoad);
 
   useEffect(() => {
-    dispatch(getSchemesData(navigate));
+    const storageData: string | null = localStorage.getItem("filter");
+    let parsedData: string = storageData ? JSON.parse(storageData) : "";
+    if (parsedData !== "") {
+      dispatch(
+        handleFilterClick({
+          navigate,
+          filter: parsedData,
+        })
+      );
+    } else {
+      dispatch(getSchemesData(navigate));
+    }
   }, []);
 
   return (

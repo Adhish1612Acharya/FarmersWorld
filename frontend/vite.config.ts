@@ -10,9 +10,6 @@ const __dirname = path.dirname(_filename);
 // // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
-// // Log the variable to verify it's being loaded
-// console.log("VITE_API_URL:", process.env.VITE_API_URL);
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],

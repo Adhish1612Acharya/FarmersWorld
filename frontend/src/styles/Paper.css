@@ -1,13 +1,13 @@
 .paper {
   transition: all 0s ease-in-out 0s !important;
   padding: 2rem !important;
-  width: 100% !important;
+  width: 50% !important;
   height: max-content !important;
   display: flex !important;
   align-items: center;
   justify-content: space-evenly !important;
   border-radius: 20px !important;
-  margin: 20px !important;
+  margin: 20px auto !important;
   word-wrap: break-word !important;
   max-width: 100%;
   text-align: justify;
@@ -19,13 +19,13 @@
 
 .adminApplications {
   padding: 2rem !important;
-  width: 100% !important;
+  width: 60% !important;
   height: max-content !important;
   display: flex !important;
   align-items: center;
   justify-content: space-evenly !important;
   border-radius: 20px !important;
-  margin: 20px !important;
+  margin: 1rem auto !important;
   word-wrap: break-word !important;
   max-width: 100%;
   text-align: justify;
@@ -45,7 +45,7 @@
     padding: 0rem !important;
     flex-wrap: wrap;
     width: 200px !important;
-    margin-left: 2rem !important;
+    margin: 1rem auto !important;
   }
 
   .imageBox {
@@ -60,6 +60,10 @@
     width: 100% !important;
     margin-left: 0px !important;
     transform: scale(0.8);
+  }
+
+  .adminApplications:hover {
+    transform: scale(1) !important;
   }
 
   .adminApplications .image {

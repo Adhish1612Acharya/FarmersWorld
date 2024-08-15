@@ -50,6 +50,8 @@ export const checkLogin = createAsyncThunk(
   "/loginCheck",
   async (navigate: NavigateFunction, thunkAPI) => {
     try {
+      localStorage.setItem("filter", "");
+      localStorage.setItem("profilePhoto", "");
       const response = await axios.get("/api/loginCheck", {
         withCredentials: true,
       });
@@ -82,11 +84,15 @@ export const signUp = createAsyncThunk(
           withCredentials: true,
         });
         if (response.data.signUpStatus === "success signUp") {
+          localStorage.setItem(
+            "profilePhoto",
+            JSON.stringify(response.data.profilePhoto)
+          );
           toast.success("Logged in successfully ");
-          navigate(`${response.data.redirect}`);
-        } else if (response.data.signUpStatus === "directSignUp") {
+          navigate(`/profile`);
+        } else if (response.data.redirect === "/admin") {
           toast.success("Logged in successfully ");
-          navigate(`${response.data.redirect}`);
+          navigate(`/admin`);
         } else if (response.data === "signUpError") {
           toast.error("Username  already exists");
           return response.data;

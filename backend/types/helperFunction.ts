@@ -17,5 +17,20 @@ const isPopulatedApplication = (
     typeof (application as any).schemeName === "object"
   );
 };
+import { Types } from "mongoose";
 
-export default isPopulatedApplication;
+const isPopulatedScheme = (
+  schemeName: Types.ObjectId | { heading: string }
+): schemeName is { heading: string } => {
+  return (schemeName as { heading: string }).heading !== undefined;
+};
+
+const isPopulatedAdhaar = (
+  applicant: Types.ObjectId | { adhaar: { name: string }; contactNo: number }
+): applicant is { adhaar: { name: string }; contactNo: number } => {
+  return (
+    (applicant as { adhaar: { name: string }; contactNo: number }) !== undefined
+  );
+};
+
+export default { isPopulatedScheme, isPopulatedAdhaar, isPopulatedApplication };

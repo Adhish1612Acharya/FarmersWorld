@@ -33,6 +33,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiCircularProgress: {
+      styleOverrides: {
+        root: {
+          margin: "auto",
+        },
+      },
+    },
   },
 });
 

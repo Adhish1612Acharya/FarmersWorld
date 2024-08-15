@@ -56,6 +56,7 @@ export const getUserApplications = createAsyncThunk(
   async (navigate: NavigateFunction, thunkAPI) => {
     thunkAPI.dispatch(setBtnDisable({ clickStatus: true, id: "all" }));
     try {
+      localStorage.setItem("applicationFilter", "");
       const response = await axios.get("/api/farmers/getApplications", {
         withCredentials: true,
       });
@@ -80,6 +81,7 @@ export const getFilterApplications = createAsyncThunk(
   "/filterApplications",
   async ({ navigate, filter }: payLoad, thunkAPI) => {
     try {
+      localStorage.setItem("applicationFilter", JSON.stringify(filter));
       thunkAPI.dispatch(setBtnDisable({ clickStatus: true, id: filter }));
       const response = await axios.get(
         `/api/farmers/getApplications/filter/${filter}`,
@@ -118,6 +120,9 @@ export const UserApplicationSlice = createSlice({
       state.clicked = action.payload.clickStatus;
       state.btnId = action.payload.id;
     },
+    setStatNo: (state, action: PayloadAction<applicationStatNo>) => {
+      state.statNo = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getUserApplications.pending, (state, action) => {
@@ -135,6 +140,13 @@ export const UserApplicationSlice = createSlice({
           rejected: statNo.rejected,
           processing: statNo.processing,
         };
+        const data = {
+          all: statNo.all,
+          approved: statNo.approved,
+          rejected: statNo.rejected,
+          processing: statNo.processing,
+        };
+        localStorage.setItem("applicationTypeNo", JSON.stringify(data));
         state.navLogin = true;
         state.filterLoad = false;
         state.showComponent = true;
@@ -147,10 +159,10 @@ export const UserApplicationSlice = createSlice({
 
     builder.addCase(getFilterApplications.fulfilled, (state, action) => {
       if (action.payload?.applications !== undefined) {
-        if (action.payload.applications === "noApplications") {
+        if (action.payload.applications.details === "noApplications") {
           state.applications = [];
         } else {
-          state.applications = action.payload.applications;
+          state.applications = action.payload.applications.details;
         }
         let status = action.payload.status;
         if (status === "approved") {
@@ -161,11 +173,13 @@ export const UserApplicationSlice = createSlice({
           state.statBtn = { status: status, color: "yellow" };
         }
         state.applicationType = action.payload.status;
+        state.navLogin = action.payload.applications.login;
         state.filterLoad = false;
+        state.showComponent = true;
       }
     });
   },
 });
 
 export default UserApplicationSlice.reducer;
-export const { setBtnDisable } = UserApplicationSlice.actions;
+export const { setBtnDisable, setStatNo } = UserApplicationSlice.actions;

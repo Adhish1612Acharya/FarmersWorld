@@ -28,6 +28,7 @@ const SchemeDetail: FC = () => {
   );
   let applied = useAppSelector((state) => state.schemeDetail.applied);
   let schemeInfo = useAppSelector((state) => state.schemeDetail.schemeInfo);
+  let logoutLoad = useAppSelector((state) => state.home.logoutLoad);
 
   useEffect(() => {
     dispatch(getSchemeDetail({ navigate, id }));
@@ -37,19 +38,24 @@ const SchemeDetail: FC = () => {
     <ThemeProvider theme={theme}>
       <>
         {showComponent ? (
-          <>
-            <NavBar
-              login={navLogin}
-              homePage={false}
-              admin={false}
-              navigate={navigate}
-            />
-            <SchemeInfo
-              info={schemeInfo}
-              applied={applied}
-              navigate={navigate}
-            />
-          </>
+          !logoutLoad ? (
+            <>
+              <NavBar
+                login={navLogin}
+                homePage={false}
+                admin={false}
+                navigate={navigate}
+              />
+
+              <SchemeInfo
+                info={schemeInfo}
+                applied={applied}
+                navigate={navigate}
+              />
+            </>
+          ) : (
+            <CircularProgress />
+          )
         ) : (
           <CircularProgress />
         )}

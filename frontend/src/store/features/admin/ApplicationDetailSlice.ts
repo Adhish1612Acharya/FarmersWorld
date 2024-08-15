@@ -1,14 +1,19 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { applicationObj } from "../../../types/routesTypes/admin/ApplicationDetail";
 import { NavigateFunction } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { server } from "../../../server";
 
 interface statObj {
   showComponent: boolean;
   navLogin: boolean;
   applDetails: applicationObj | null;
   loading: boolean;
+  rejectReason: string;
+  openRejectDialog: boolean;
+  validateNotification: boolean;
+  error: boolean;
 }
 
 const initialState: statObj = {
@@ -16,6 +21,10 @@ const initialState: statObj = {
   navLogin: false,
   applDetails: null,
   loading: false,
+  rejectReason: "",
+  openRejectDialog: false,
+  validateNotification: false,
+  error: false,
 };
 
 interface payLoad {
@@ -28,6 +37,7 @@ interface payLoad2 {
   applicationId: string;
   status: string;
   navigate: NavigateFunction;
+  rejectReason: string;
 }
 
 export const getApplicationDetails = createAsyncThunk(
@@ -59,9 +69,18 @@ export const getApplicationDetails = createAsyncThunk(
 
 export const updateApplicationStatus = createAsyncThunk(
   "/updateStatus",
-  async ({ schemeId, applicationId, status, navigate }: payLoad2, thunkAPI) => {
+  async (
+    { schemeId, applicationId, status, rejectReason, navigate }: payLoad2,
+    thunkAPI
+  ) => {
+    console.log("request sent");
+    const rejectReasonData = {
+      rejectReason: rejectReason,
+    };
+
     const response = await axios.put(
-      `/api/admin/schemes/applications/${applicationId}/${status}`,
+      `${server}/api/admin/schemes/applications/${applicationId}/${status}`,
+      rejectReasonData,
       {
         withCredentials: true,
       }
@@ -88,7 +107,18 @@ export const updateApplicationStatus = createAsyncThunk(
 export const ApplicationDetailSlice = createSlice({
   name: "adminApplicationDetail",
   initialState,
-  reducers: {},
+  reducers: {
+    setError: (state, action: PayloadAction<boolean>) => {
+      state.error = action.payload;
+    },
+    setRejectDialogOpen: (state, action: PayloadAction<boolean>) => {
+      state.openRejectDialog = action.payload;
+    },
+    setRejectReason: (state, action: PayloadAction<string>) => {
+      state.error = false;
+      state.rejectReason = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getApplicationDetails.pending, (state, action) => {
       state.showComponent = false;
@@ -108,4 +138,5 @@ export const ApplicationDetailSlice = createSlice({
 });
 
 export default ApplicationDetailSlice.reducer;
-export const {} = ApplicationDetailSlice.actions;
+export const { setRejectDialogOpen, setError, setRejectReason } =
+  ApplicationDetailSlice.actions;

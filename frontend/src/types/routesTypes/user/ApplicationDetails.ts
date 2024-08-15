@@ -14,9 +14,12 @@ export interface applicationObj {
   farmersId: string;
   image: string;
   applicant: string;
-  schemeName: schemeObj;
+  schemeName: string;
   approved: boolean;
   processing: boolean;
+  name: string;
+  contactNo: string;
+  rejectReason: string;
 }
 
 export type checkLoginType = () => Promise<void>;

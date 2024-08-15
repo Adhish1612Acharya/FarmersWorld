@@ -6,12 +6,15 @@ import {
   useLoaderData,
   LoaderFunction,
   LoaderFunctionArgs,
+  Link,
 } from "react-router-dom";
-import { CircularProgress, ThemeProvider } from "@mui/material";
+import { Avatar, CircularProgress, ThemeProvider } from "@mui/material";
 import { server } from "../../server";
 import { getApplications } from "../../store/features/admin/ApplicationSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import theme from "../../theme";
+import { deepOrange } from "@mui/material/colors";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs<any>) => {
   const { schemeId } = params as { schemeId: string };
@@ -31,6 +34,7 @@ const Applications: FC = () => {
     (state) => state.adminApplications.applications
   );
   let heading = useAppSelector((state) => state.adminApplications.heading);
+  let logoutLoad = useAppSelector((state) => state.home.logoutLoad);
 
   useEffect(() => {
     dispatch(getApplications({ id: schemeId, navigate }));
@@ -40,41 +44,54 @@ const Applications: FC = () => {
     <ThemeProvider theme={theme}>
       <>
         {showComponent ? (
-          <>
-            <NavBar
-              login={navLogin}
-              homePage={false}
-              admin={true}
-              navigate={navigate}
-            />
-            <h1 style={{ marginTop: "4rem" }}>{heading}</h1>
-            <div
-              style={{
-                height: "max-content",
-                marginTop: "6rem",
-                width: "100%",
-              }}
-            >
-              {applications.length === 0 ? (
-                <CheckAppl key={"none"} />
-              ) : (
-                applications.map((application) => {
-                  return (
-                    <a
-                      href={`/admin/schemes/${schemeId}/applications/${application._id}`}
-                      key={application._id}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <CheckAppl
+          !logoutLoad ? (
+            <>
+              <NavBar
+                login={navLogin}
+                homePage={false}
+                admin={true}
+                navigate={navigate}
+              />
+              <h1 style={{ marginTop: "4rem" }}>{heading}</h1>
+              <Link to="/admin" style={{ color: "black" }}>
+                <Avatar
+                  sx={{ bgcolor: deepOrange[500] }}
+                  style={{ marginLeft: "10%" }}
+                  variant="rounded"
+                >
+                  <KeyboardBackspaceIcon />
+                </Avatar>
+              </Link>
+              <div
+                style={{
+                  height: "max-content",
+                  marginTop: "6rem",
+                  width: "100%",
+                }}
+              >
+                {applications.length === 0 ? (
+                  <CheckAppl key={"none"} />
+                ) : (
+                  applications.map((application) => {
+                    return (
+                      <a
+                        href={`/admin/schemes/${schemeId}/applications/${application._id}`}
                         key={application._id}
-                        application={application}
-                      />
-                    </a>
-                  );
-                })
-              )}
-            </div>
-          </>
+                        style={{ textDecoration: "none" }}
+                      >
+                        <CheckAppl
+                          key={application._id}
+                          application={application}
+                        />
+                      </a>
+                    );
+                  })
+                )}
+              </div>
+            </>
+          ) : (
+            <CircularProgress />
+          )
         ) : (
           <CircularProgress />
         )}

@@ -19,6 +19,7 @@ import {
   getSchemesData,
   setLoading,
   setLogin,
+  setLogoutLoad,
 } from "../store/features/farmer/HomeSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -30,6 +31,9 @@ const NavBar: React.FC<navbarProps> = ({
   navigate,
 }) => {
   const dispatch = useAppDispatch();
+
+  const storageData: string | null = localStorage.getItem("profilePhoto");
+  let profilePhoto: string = storageData ? JSON.parse(storageData) : "";
   let pages;
   {
     !login
@@ -55,8 +59,12 @@ const NavBar: React.FC<navbarProps> = ({
         ]);
   }
   const settings = admin
-    ? ["Profile", "Logout"]
-    : ["Profile", "Applications", "Logout"];
+    ? [{ type: "Profile", to: "/admin/profile" }, { type: "Logout" }]
+    : [
+        { type: "Profile", to: "/profile" },
+        { type: "Applications", to: "/schemes/applications" },
+        { type: "Logout" },
+      ];
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -78,18 +86,26 @@ const NavBar: React.FC<navbarProps> = ({
 
   const handleCloseUserMenu = (
     navigate: NavigateFunction,
-    link?: string
+    link?: string,
+    to?: string
   ): void => {
     if (link === "Logout") {
       logoutFunction();
-    } else if (link === "Applications") {
-      navigate("/schemes/applications");
+    } else {
+      if (to) {
+        navigate(to);
+      }
     }
     setAnchorElUser(null);
   };
 
   let logoutFunction = async (): Promise<void> => {
+    localStorage.setItem("filter", "");
+    localStorage.setItem("applicationTypeNo", "");
+    localStorage.setItem("applicationFilter", "");
+    localStorage.setItem("profilePhoto", "");
     dispatch(setLoading(true));
+    dispatch(setLogoutLoad(true));
     await axios
       .get(`/api/logOut`, { withCredentials: true })
       .then((res) => {
@@ -298,7 +314,10 @@ const NavBar: React.FC<navbarProps> = ({
                     <Link
                       key={page.name}
                       to={page.to}
-                      onClick={() => dispatch(getSchemesData(navigate))}
+                      onClick={() => {
+                        localStorage.setItem("filter", "");
+                        dispatch(getSchemesData(navigate));
+                      }}
                       style={{ color: "white", display: "block" }}
                     >
                       {page.name}
@@ -307,6 +326,9 @@ const NavBar: React.FC<navbarProps> = ({
                     <Link
                       key={page.name}
                       to={page.to}
+                      onClick={() => {
+                        localStorage.setItem("filter", "");
+                      }}
                       style={{ color: "white", display: "block" }}
                     >
                       {page.name}
@@ -327,10 +349,7 @@ const NavBar: React.FC<navbarProps> = ({
                         },
                       }}
                     >
-                      <Avatar
-                        alt="Remy Sharp"
-                        src="/static/images/avatar/2.jpg"
-                      />
+                      <Avatar alt="" src={profilePhoto} />
                     </IconButton>
                   </Tooltip>
                   <Menu
@@ -351,12 +370,18 @@ const NavBar: React.FC<navbarProps> = ({
                   >
                     {settings.map((setting) => (
                       <MenuItem
-                        key={setting}
+                        key={setting.type}
                         onClick={() => {
-                          handleCloseUserMenu(navigate, setting);
+                          handleCloseUserMenu(
+                            navigate,
+                            setting.type,
+                            setting.to
+                          );
                         }}
                       >
-                        <Typography textAlign="center">{setting}</Typography>
+                        <Typography textAlign="center">
+                          {setting.type}
+                        </Typography>
                       </MenuItem>
                     ))}
                   </Menu>

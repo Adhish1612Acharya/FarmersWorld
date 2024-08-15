@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { applicationObj } from "../../../types/routesTypes/user/ApplicationDetails";
 import { NavigateFunction } from "react-router-dom";
 import axios from "axios";
@@ -14,6 +14,7 @@ interface stateObj {
   statusBtn: statusBtnObj;
   showComponent: boolean;
   navLogin: boolean;
+  rejectReasonDialog: boolean;
 }
 
 const initialState: stateObj = {
@@ -24,6 +25,7 @@ const initialState: stateObj = {
   },
   showComponent: false,
   navLogin: false,
+  rejectReasonDialog: false,
 };
 
 interface payLoad {
@@ -35,6 +37,7 @@ export const getApplicationDetail = createAsyncThunk(
   "/applicationDetails",
   async ({ navigate, id }: payLoad, thunkAPI) => {
     try {
+      localStorage.setItem("filter", "");
       const response = await axios.get(`/api/farmers/getApplications/${id}`, {
         withCredentials: true,
       });
@@ -60,7 +63,11 @@ export const getApplicationDetail = createAsyncThunk(
 export const ApplicationDetailSlice = createSlice({
   name: "applicationDetail",
   initialState,
-  reducers: {},
+  reducers: {
+    showFarmerRejectReasonDialog: (state, action: PayloadAction<boolean>) => {
+      state.rejectReasonDialog = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getApplicationDetail.pending, (state, action) => {
       state.showComponent = false;
@@ -83,4 +90,4 @@ export const ApplicationDetailSlice = createSlice({
 });
 
 export default ApplicationDetailSlice.reducer;
-export const {} = ApplicationDetailSlice.actions;
+export const { showFarmerRejectReasonDialog } = ApplicationDetailSlice.actions;

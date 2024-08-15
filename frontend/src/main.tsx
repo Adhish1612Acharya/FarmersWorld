@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "../../App";
+import App from "./App";
 import "./index.css";
 import "./App.css";
 import {
@@ -28,8 +28,9 @@ import ApplicationDetail from "./routes/admin/ApplicationDetail";
 import { loader as adminFarmerApplicationDetailLoader } from "./routes/admin/ApplicationDetail";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import Profile from "./routes/user/Profile";
 
-let routes: RouteObject[] = [
+const routes: RouteObject[] = [
   {
     path: "/",
     element: <Home />,
@@ -88,6 +89,11 @@ let routes: RouteObject[] = [
     path: "/admin/schemes/:schemeId/applications/:applicationId",
     element: <ApplicationDetail />,
     loader: adminFarmerApplicationDetailLoader,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
     errorElement: <ErrorPage />,
   },
 ];

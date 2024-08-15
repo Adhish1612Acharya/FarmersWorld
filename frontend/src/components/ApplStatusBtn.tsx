@@ -3,9 +3,13 @@ import { FC } from "react";
 import { appliStatusProps } from "../types/componentsTypes/ApplStatusBtn";
 import theme from "../theme";
 
-const ApplStatusBtn: FC<appliStatusProps> = ({ color, status, ht }) => {
+const ApplStatusBtn: FC<appliStatusProps> = ({ color, status, ht, admin }) => {
   return (
     <ThemeProvider theme={theme}>
+      {!admin ? (
+        <h3 style={{ display: "inline-block" }}>Application Status :&nbsp;</h3>
+      ) : null}
+
       <Paper
         elevation={8}
         style={{
@@ -13,7 +17,9 @@ const ApplStatusBtn: FC<appliStatusProps> = ({ color, status, ht }) => {
           width: "max-content",
           padding: "0.5rem",
           backgroundColor: color,
-          marginLeft: "2rem",
+          marginLeft: "auto",
+          marginRight: "auto",
+          display: "inline-block",
         }}
       >
         <b style={{ whiteSpace: "nowrap", display: "inline-block" }}>

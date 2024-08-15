@@ -22,6 +22,8 @@ const DetailsTable: FC<detailsTablePops> = ({
   farmersUniqueNumber,
   imageLink,
   admin,
+  name,
+  contactNo,
 }) => {
   const createData: createDataObj = (details: string, givenDetails: string) => {
     return { details, givenDetails };
@@ -33,13 +35,15 @@ const DetailsTable: FC<detailsTablePops> = ({
     createData("Adhaar Number :", adhaarNumber),
     createData("Farmers Unique Number :", farmersUniqueNumber),
     createData("Passport size Image : ", imageLink),
+    createData("Name :", name),
+    createData("Contact No. :", contactNo),
   ];
 
   return (
     <ThemeProvider theme={theme}>
       <TableContainer component={Paper} className="detailTable" elevation={8}>
         <Table sx={{ width: "100%" }} aria-label="caption table">
-          {!admin ? (
+          {admin !== "true" ? (
             <caption>
               For Queries Contact :{" "}
               <a style={{ textDecoration: "none" }}>8354637289</a>

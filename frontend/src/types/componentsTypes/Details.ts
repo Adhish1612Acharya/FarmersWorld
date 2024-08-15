@@ -9,5 +9,7 @@ export interface detailsTablePops {
   adhaarNumber: string;
   farmersUniqueNumber: string;
   imageLink: string;
-  admin: boolean;
+  admin: string;
+  name: string;
+  contactNo: string;
 }

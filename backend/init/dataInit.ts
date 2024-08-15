@@ -1,8 +1,7 @@
 import sampleData from "./data";
 import Scheme from "../models/Scheme";
 import mongoose from "mongoose";
-const DB_URL =
-  "mongodb+srv://Adhish:kCxYFhGcZCrzaD1u@cluster0.pndh2oh.mongodb.net/Farmersworld?retryWrites=true&w=majority&appName=Cluster0";
+const DB_URL = "mongodb://127.0.0.1:27017/farmersworld";
 
 main()
   .then(() => {

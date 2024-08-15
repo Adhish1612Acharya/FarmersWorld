@@ -20,6 +20,7 @@ const ErrorPage: FC = () => {
   let navLogin = useAppSelector((state) => state.errorPage.navLogin);
   let admin = useAppSelector((state) => state.errorPage.admin);
   let [errMsg, setErrMsg] = useState<any>("");
+  let logoutLoad = useAppSelector((state) => state.home.logoutLoad);
   let home = window.location.pathname;
 
   const getErrorMsg: getErrorPageType = (error: ErrorType) => {
@@ -33,6 +34,7 @@ const ErrorPage: FC = () => {
   };
 
   useEffect(() => {
+    localStorage.setItem("filter", "");
     dispatch(checkLogin());
     getErrorMsg(error);
   }, []);
@@ -41,21 +43,25 @@ const ErrorPage: FC = () => {
     <ThemeProvider theme={theme}>
       <>
         {showComponent ? (
-          <div className="errorPage">
-            <NavBar
-              login={navLogin}
-              admin={admin}
-              homePage={home == "/" ? true : false}
-              navigate={navigate}
-            />
-            <Alert severity="error">
-              {" "}
-              <h1>Oops there was an error</h1>
-            </Alert>
-            <p>
-              <b>`{errMsg}`</b>
-            </p>
-          </div>
+          !logoutLoad ? (
+            <div className="errorPage">
+              <NavBar
+                login={navLogin}
+                admin={admin}
+                homePage={home == "/" ? true : false}
+                navigate={navigate}
+              />
+              <Alert severity="error" style={{ width: "50%", margin: "auto" }}>
+                {" "}
+                <h1>Oops there was an error</h1>
+              </Alert>
+              <p>
+                <b>`{errMsg}`</b>
+              </p>
+            </div>
+          ) : (
+            <CircularProgress />
+          )
         ) : (
           <CircularProgress />
         )}

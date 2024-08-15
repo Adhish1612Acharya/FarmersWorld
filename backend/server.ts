@@ -26,8 +26,8 @@ import commonRouter from "./routes/common";
 
 import loginCheckController from "./controllers/common";
 
-const DB_URL = process.env.DB_PORT || "mongodb://127.0.0.1:27017/farmersworld";
-
+const DB_URL = "mongodb://127.0.0.1:27017/farmersworld";
+// process.env.DB_PORT ||
 main()
   .then(() => {
     console.log("DB connected", DB_URL);

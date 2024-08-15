@@ -8,6 +8,7 @@ export interface applicationDocument extends Document {
   schemeName: Types.ObjectId;
   approved: boolean;
   processing: boolean;
+  rejectReason: string;
 }
 
 const applicationSchema = new Schema<applicationDocument>({
@@ -40,6 +41,10 @@ const applicationSchema = new Schema<applicationDocument>({
   processing: {
     type: Boolean,
     default: true,
+  },
+  rejectReason: {
+    type: String,
+    default: "",
   },
 });
 

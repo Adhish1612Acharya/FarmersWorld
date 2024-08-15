@@ -11,8 +11,13 @@ import { Button, CircularProgress, ThemeProvider } from "@mui/material";
 import ApplStatusBtn from "../../components/ApplStatusBtn";
 import { server } from "../../server";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { getApplicationDetail } from "../../store/features/farmer/ApplicationDetailSlice";
+import {
+  getApplicationDetail,
+  showFarmerRejectReasonDialog,
+} from "../../store/features/farmer/ApplicationDetailSlice";
 import theme from "../../theme";
+import "../../styles/Table.css";
+import ShowRejectReasonDialog from "../../components/ShowRejectReasonDialog";
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs<any>) => {
   const { applicationId } = params as { applicationId: string };
@@ -24,15 +29,20 @@ const ApplicationDetails: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const applDetails = useAppSelector(
-    (state) => state.applicationDetail.applDetails
+    (state) => state.applicationDetail?.applDetails
   );
   const statusBtn = useAppSelector(
-    (state) => state.applicationDetail.statusBtn
+    (state) => state.applicationDetail?.statusBtn
   );
   const showComponent = useAppSelector(
-    (state) => state.applicationDetail.showComponent
+    (state) => state.applicationDetail?.showComponent
   );
   const navLogin = useAppSelector((state) => state.applicationDetail.navLogin);
+  const logoutLoad = useAppSelector((state) => state.home.logoutLoad);
+
+  const rejectReasonDialog = useAppSelector(
+    (state) => state.applicationDetail.rejectReasonDialog
+  );
 
   useEffect(() => {
     dispatch(getApplicationDetail({ navigate, id: applicationId }));
@@ -42,53 +52,80 @@ const ApplicationDetails: FC = () => {
     <ThemeProvider theme={theme}>
       <>
         {showComponent ? (
-          <>
-            <NavBar
-              login={navLogin}
-              navigate={navigate}
-              admin={false}
-              homePage={false}
-            />
-            <div className="status" style={{ margin: "2rem" }}>
-              <h3 style={{ display: "flex", marginTop: "1rem" }}>
-                Application Status :{" "}
+          !logoutLoad ? (
+            <>
+              <NavBar
+                login={navLogin}
+                navigate={navigate}
+                admin={false}
+                homePage={false}
+              />
+              <div className="status">
                 {
                   <ApplStatusBtn
                     color={statusBtn.color}
                     status={statusBtn.status}
                   />
                 }
-              </h3>
-            </div>
+                {typeof applDetails !== "string" &&
+                applDetails.processing == false &&
+                applDetails.approved == false ? (
+                  <Button
+                    style={{ margin: "2rem" }}
+                    onClick={() => dispatch(showFarmerRejectReasonDialog(true))}
+                    color="secondary"
+                    variant="contained"
+                  >
+                    View Reason
+                  </Button>
+                ) : null}
+              </div>
 
-            <DetailsTable
-              adhaarNumber={
-                typeof applDetails !== "string" ? applDetails.adhaar : ""
-              }
-              farmersUniqueNumber={
-                typeof applDetails !== "string" ? applDetails.farmersId : ""
-              }
-              imageLink={
-                typeof applDetails !== "string" ? applDetails.image : ""
-              }
-              schemeName={
-                typeof applDetails !== "string"
-                  ? applDetails.schemeName.heading
-                  : ""
-              }
-              applicationId={
-                typeof applDetails !== "string" ? applDetails._id : ""
-              }
-              admin={false}
-            />
-            <Button
-              variant="contained"
-              style={{ marginTop: "1rem" }}
-              onClick={() => navigate("/schemes/applications")}
-            >
-              Back
-            </Button>
-          </>
+              <DetailsTable
+                adhaarNumber={
+                  typeof applDetails !== "string" ? applDetails.adhaar : ""
+                }
+                farmersUniqueNumber={
+                  typeof applDetails !== "string" ? applDetails.farmersId : ""
+                }
+                imageLink={
+                  typeof applDetails !== "string" ? applDetails.image : ""
+                }
+                schemeName={
+                  typeof applDetails !== "string" ? applDetails.schemeName : ""
+                }
+                applicationId={
+                  typeof applDetails !== "string" ? applDetails._id : ""
+                }
+                admin={"false"}
+                name={typeof applDetails !== "string" ? applDetails.name : ""}
+                contactNo={
+                  typeof applDetails !== "string" ? applDetails.contactNo : ""
+                }
+              />
+              <Button
+                variant="contained"
+                style={{
+                  width: "50%",
+                  margin: "1rem auto",
+                }}
+                onClick={() => navigate("/schemes/applications")}
+              >
+                Back
+              </Button>
+              <ShowRejectReasonDialog
+                open={rejectReasonDialog}
+                rejectReason={
+                  typeof applDetails !== "string"
+                    ? applDetails.rejectReason
+                    : ""
+                }
+                dispatch={dispatch}
+              />
+            </>
+          ) : (
+            <CircularProgress />
+          )
         ) : (
           <CircularProgress />
         )}

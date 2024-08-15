@@ -6,7 +6,12 @@ export interface loaderReturnObj {
 export interface applicationObj {
   _id: string;
   adhaar: string;
-  applicant: string;
+  applicant: {
+    adhaar: {
+      name: string;
+    };
+    contactNo: string;
+  };
   approved: boolean;
   processing: boolean;
   farmersId: string;

@@ -6,6 +6,7 @@ import {
   UserRole,
   checkApplicationApplied,
   populateBody,
+  getRequestLoginMiddleware,
 } from "../middlewares";
 
 import schemesController from "../controllers/schemes";
@@ -14,9 +15,17 @@ import multer from "multer";
 const upload = multer({ storage });
 const cloudinary = require("../cloudConfig").cloudinary;
 
-router.get("/", wrapAsync(schemesController.allSchemes));
+router.get(
+  "/",
+  getRequestLoginMiddleware,
+  wrapAsync(schemesController.allSchemes)
+);
 
-router.post("/:id", wrapAsync(schemesController.singleScheme));
+router.get(
+  "/:id",
+  getRequestLoginMiddleware,
+  wrapAsync(schemesController.singleScheme)
+);
 
 router.get("/filter/:filter", wrapAsync(schemesController.filterSchemeDetail));
 

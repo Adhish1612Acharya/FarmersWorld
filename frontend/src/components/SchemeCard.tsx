@@ -12,25 +12,30 @@ const SchemeCard: FC<schemeCardProps> = ({
   isApplication,
   statBtn,
   count,
+  admin,
 }) => {
   return (
     <ThemeProvider theme={theme}>
       <Paper elevation={8} className="paper">
-        {!home ? (
-          <>
-            {isApplication ? (
-              <ApplStatusBtn status={statBtn?.status} color={statBtn?.color} />
-            ) : (
-              <ApplStatusBtn
-                status={`${count} Applications`}
-                ht="max-content"
-                color={"orange"}
-              />
-            )}
-          </>
-        ) : null}
-
         <Box sx={{ textAlign: "center" }} className="headingBox">
+          {!home ? (
+            <>
+              {isApplication ? (
+                <ApplStatusBtn
+                  status={statBtn?.status}
+                  color={statBtn?.color}
+                  admin={admin}
+                />
+              ) : (
+                <ApplStatusBtn
+                  status={`${count} Applications`}
+                  ht="max-content"
+                  color={"orange"}
+                  admin={admin}
+                />
+              )}
+            </>
+          ) : null}
           <h2>{scheme?.heading}</h2>
           <p>{scheme?.shortDescription}</p>
         </Box>

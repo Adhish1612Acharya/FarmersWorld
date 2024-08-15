@@ -49,6 +49,8 @@ interface payLoad {
 export const checkLogin = createAsyncThunk(
   "/loginCheck",
   async (navigate: NavigateFunction, thunkAPI) => {
+    localStorage.setItem("filter", "");
+
     const response = await axios.get("/api/loginCheck", {
       withCredentials: true,
     });
@@ -76,9 +78,25 @@ export const login = createAsyncThunk(
           withCredentials: true,
         });
         if (response.data.loginStatus === "successLogin") {
+          localStorage.setItem(
+            "profilePhoto",
+            JSON.stringify(
+              response.data.profilePhoto !== undefined
+                ? response.data.profilePhoto
+                : ""
+            )
+          );
           navigate(`${response.data.redirect}`);
           toast.success("Logged in successfully ");
         } else if (response.data.loginStatus === "directLogin") {
+          localStorage.setItem(
+            "profilePhoto",
+            JSON.stringify(
+              response.data.profilePhoto !== undefined
+                ? response.data.profilePhoto
+                : ""
+            )
+          );
           navigate(`${response.data.redirect}`);
           toast.success("Logged in successfully ");
         } else if (response.data === "failureLogin") {

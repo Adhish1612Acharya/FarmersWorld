@@ -13,6 +13,8 @@ const TextInput: FC<textInputStatProps> = ({
   outerLabel,
   setForm,
   errors,
+  disabled,
+  readOnlyStatus,
 }) => {
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === " ") {
@@ -22,10 +24,7 @@ const TextInput: FC<textInputStatProps> = ({
   return (
     <ThemeProvider theme={theme}>
       <div className="textField">
-        <label
-          htmlFor={name}
-          style={{ marginRight: "1rem", fontWeight: "bolder" }}
-        >
+        <label htmlFor={name} style={{ margin: "1rem", fontWeight: "bolder" }}>
           {outerLabel}
         </label>
         <TextField
@@ -40,6 +39,11 @@ const TextInput: FC<textInputStatProps> = ({
           helperText={errors?.errMsg}
           onKeyDown={handleKeyDown}
           style={{ maxWidth: "100%" }}
+          disabled={disabled}
+          InputProps={{
+            readOnly: readOnlyStatus,
+          }}
+          variant={typeValue !== "file" ? "filled" : "standard"}
         />
       </div>
     </ThemeProvider>

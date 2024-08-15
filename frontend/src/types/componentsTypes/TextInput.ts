@@ -13,4 +13,6 @@ export interface textInputStatProps {
   outerLabel?: string;
   setForm?: setFormType | undefined;
   errors?: errors;
+  disabled: boolean;
+  readOnlyStatus: boolean;
 }

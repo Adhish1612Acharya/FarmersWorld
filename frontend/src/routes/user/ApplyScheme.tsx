@@ -10,7 +10,7 @@ import {
 import { CircularProgress, ThemeProvider } from "@mui/material";
 import { server } from "../../server";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { checkSchemeApplied } from "../../store/features/farmer/ApplySchemeSlice";
+import { getApplicationInfo } from "../../store/features/farmer/ApplySchemeSlice";
 import theme from "../../theme";
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs<any>) => {
@@ -30,27 +30,32 @@ const ApplyScheme: FC = () => {
   );
   let navLogin = useAppSelector((state) => state.applyScheme.navLogin);
   let scheme = useAppSelector((state) => state.applyScheme.scheme);
+  let logoutLoad = useAppSelector((state) => state.home.logoutLoad);
 
   useEffect(() => {
-    dispatch(checkSchemeApplied({ navigate, id: schemeId }));
+    dispatch(getApplicationInfo({ navigate, id: schemeId }));
   }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <>
         {showComponent ? (
-          <>
-            <NavBar
-              login={navLogin}
-              admin={false}
-              homePage={false}
-              navigate={navigate}
-            />
-            <h1 style={{ wordWrap: "break-word" }}>
-              Application for : {scheme ? scheme.heading : null}
-            </h1>
-            <Application schemeId={schemeId} navigate={navigate} />
-          </>
+          !logoutLoad ? (
+            <>
+              <NavBar
+                login={navLogin}
+                admin={false}
+                homePage={false}
+                navigate={navigate}
+              />
+              <h1 style={{ wordWrap: "break-word", marginTop: "64px" }}>
+                Application for : {scheme ? scheme.heading : null}
+              </h1>
+              <Application schemeId={schemeId} navigate={navigate} />
+            </>
+          ) : (
+            <CircularProgress />
+          )
         ) : (
           <CircularProgress />
         )}

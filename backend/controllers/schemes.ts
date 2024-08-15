@@ -4,9 +4,10 @@ import Scheme, { govtSchemesDocument } from "../models/Scheme";
 import Application, { applicationDocument } from "../models/Application";
 import { Types } from "mongoose";
 import expressError from "../utils/expressError";
-import isPopulatedApplication from "../types/helperFunction";
+import helperFunction from "../types/helperFunction";
 
 export const allSchemes = async (req: Request, res: Response) => {
+  const loginStatus = req.mdata?.login;
   let schemes = await Scheme.find({})
     .populate("applications")
     .catch((err: any) => {
@@ -29,19 +30,19 @@ export const allSchemes = async (req: Request, res: Response) => {
         }
         res.json({
           schemes: schemes,
-          login: req.isAuthenticated(),
+          login: loginStatus,
           role: req.user.role,
           count: count,
         });
       } else {
         res.json({
           schemes: schemes,
-          login: req.isAuthenticated(),
+          login: loginStatus,
           role: req.user.role,
         });
       }
     } else {
-      res.json({ schemes: schemes, login: req.isAuthenticated() });
+      res.json({ schemes: schemes, login: loginStatus });
     }
   } else {
     res.json("noData");
@@ -51,43 +52,53 @@ export const allSchemes = async (req: Request, res: Response) => {
 export const singleScheme = async (req: Request, res: Response) => {
   try {
     let { id } = req.params;
-    let { route } = req.body;
+    let { route } = req.query;
+    const loginStatus = req.mdata?.login;
     let data = (await Scheme.findById(id).catch((err: any) => {
       console.log("get scheme info error");
     })) as govtSchemesDocument;
 
+    let applied: boolean = false;
     if (!data) {
       res.json("noSchemeFound");
     } else {
-      let farmersApplication = (await Farmer.findById(req.user?._id).populate({
-        path: "applications",
-        populate: {
-          path: "schemeName",
-          model: "Scheme",
-          match: { _id: id },
-        },
-      })) as farmersDocument | null;
+      if (req.isAuthenticated()) {
+        let farmersApplication = (await Farmer.findById(req.user?._id).populate(
+          {
+            path: "applications",
+            populate: {
+              path: "schemeName",
+              model: "Scheme",
+              match: { _id: id },
+            },
+          }
+        )) as farmersDocument | null;
 
-      const applications = farmersApplication?.applications;
+        const applications = farmersApplication?.applications;
 
-      let applied: boolean = false;
-      if (applications) {
-        for (const application of applications) {
-          if (
-            isPopulatedApplication(application) &&
-            application.schemeName != null &&
-            application.schemeName._id.equals(id) &&
-            application.processing === true
-          ) {
-            applied = true;
+        if (applications) {
+          for (const application of applications) {
+            if (
+              helperFunction.isPopulatedApplication(application) &&
+              application.schemeName != null &&
+              application.schemeName._id.equals(id) &&
+              application.processing === true
+            ) {
+              applied = true;
+            }
           }
         }
-      }
-      if (req.isAuthenticated()) {
+        const profileInfo = {
+          adhaar: farmersApplication?.adhaar.number,
+          farmersId: farmersApplication?.farmersId,
+          image: farmersApplication?.passportSizePhoto,
+          profileComplete: farmersApplication?.profileComplete,
+        };
         res.json({
           applied: applied,
           schemeDetail: data,
-          login: req.isAuthenticated(),
+          login: loginStatus,
+          profileInfo: profileInfo,
           role: req.user?.role,
         });
       } else {
@@ -95,7 +106,7 @@ export const singleScheme = async (req: Request, res: Response) => {
         res.json({
           applied: applied,
           schemeDetail: data,
-          login: req.isAuthenticated(),
+          login: loginStatus,
         });
       }
     }
@@ -130,11 +141,13 @@ export const filterSchemeDetail = async (req: Request, res: Response) => {
           role: "admin",
           count: count,
           schemes: schemes,
+          login: true,
         });
       } else {
         res.json({
           role: "farmer",
           schemes: schemes,
+          login: req.isAuthenticated(),
         });
       }
     }

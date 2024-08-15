@@ -20,17 +20,17 @@ import {
   fileReader,
   setInputData,
   validation,
-} from "../store/features/component/ApplicationSlice";
+} from "../store/features/farmer/ApplySchemeSlice";
 import { LoadingButton } from "@mui/lab";
 import "../styles/Form.css";
 
 const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
   const dispatch = useAppDispatch();
-  let value = useAppSelector((state) => state.application.value);
-  let errors = useAppSelector((state) => state.application.errors);
+  let value = useAppSelector((state) => state.applyScheme.value);
+  let errors = useAppSelector((state) => state.applyScheme.errors);
   let [imageFile, setImageFile] = useState<File | "">("");
-  let imagePreview = useAppSelector((state) => state.application.imagePreview);
-  let submitLoad = useAppSelector((state) => state.application.submitLoad);
+  let imagePreview = useAppSelector((state) => state.applyScheme.imagePreview);
+  let submitLoad = useAppSelector((state) => state.applyScheme.submitLoad);
 
   let setFormData = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.type === "file") {
@@ -85,6 +85,8 @@ const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
             outerLabel={"Adhaar Number"}
             setForm={setFormData}
             errors={errors.adhaar}
+            disabled={false}
+            readOnlyStatus={true}
           />
 
           <TextInput
@@ -95,6 +97,8 @@ const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
             outerLabel={"Unique Framers Id"}
             setForm={setFormData}
             errors={errors.farmersId}
+            disabled={false}
+            readOnlyStatus={true}
           />
 
           {imagePreview !== "" ? (
@@ -113,6 +117,8 @@ const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
             outerLabel={"Enter passport size image"}
             setForm={setFormData}
             errors={errors.image}
+            disabled={false}
+            readOnlyStatus={false}
           />
 
           {!submitLoad ? (

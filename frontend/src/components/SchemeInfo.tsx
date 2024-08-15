@@ -1,9 +1,12 @@
-import { Paper, ThemeProvider } from "@mui/material";
+import { Avatar, Paper, ThemeProvider } from "@mui/material";
 import "../styles/SchemeInfo.css";
 import Button from "@mui/material/Button";
 import { FC } from "react";
 import { schemeInfoProps } from "../types/componentsTypes/SchemeInfo";
 import theme from "../theme";
+import { Link } from "react-router-dom";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { deepOrange } from "@mui/material/colors";
 
 const SchemeInfo: FC<schemeInfoProps> = ({ info, applied, navigate }) => {
   return (
@@ -11,6 +14,12 @@ const SchemeInfo: FC<schemeInfoProps> = ({ info, applied, navigate }) => {
       <>
         <Paper className="schemeInfo" elevation={8}>
           <div className="infoHeader">
+            <Link to="/" style={{ color: "black" }}>
+              <Avatar sx={{ bgcolor: deepOrange[500] }} variant="rounded">
+                <KeyboardBackspaceIcon />
+              </Avatar>
+            </Link>
+
             <h2 style={{ display: "inline-block" }}>{info?.heading}</h2>
             {!applied ? (
               <Button
