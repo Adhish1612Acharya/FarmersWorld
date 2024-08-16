@@ -9,4 +9,10 @@ const isPopulatedApplication = (application) => {
         "schemeName" in application &&
         typeof application.schemeName === "object");
 };
-exports.default = isPopulatedApplication;
+const isPopulatedScheme = (schemeName) => {
+    return schemeName.heading !== undefined;
+};
+const isPopulatedAdhaar = (applicant) => {
+    return (applicant !== undefined);
+};
+exports.default = { isPopulatedScheme, isPopulatedAdhaar, isPopulatedApplication };

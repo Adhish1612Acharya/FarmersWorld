@@ -20,6 +20,8 @@ const mongoose_1 = require("mongoose");
 const expressError_1 = __importDefault(require("../utils/expressError"));
 const helperFunction_1 = __importDefault(require("../types/helperFunction"));
 const allSchemes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const loginStatus = (_a = req.mdata) === null || _a === void 0 ? void 0 : _a.login;
     let schemes = yield Scheme_1.default.find({})
         .populate("applications")
         .catch((err) => {
@@ -41,7 +43,7 @@ const allSchemes = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 }
                 res.json({
                     schemes: schemes,
-                    login: req.isAuthenticated(),
+                    login: loginStatus,
                     role: req.user.role,
                     count: count,
                 });
@@ -49,13 +51,13 @@ const allSchemes = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             else {
                 res.json({
                     schemes: schemes,
-                    login: req.isAuthenticated(),
+                    login: loginStatus,
                     role: req.user.role,
                 });
             }
         }
         else {
-            res.json({ schemes: schemes, login: req.isAuthenticated() });
+            res.json({ schemes: schemes, login: loginStatus });
         }
     }
     else {
@@ -64,43 +66,51 @@ const allSchemes = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.allSchemes = allSchemes;
 const singleScheme = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
+    var _a, _b, _c;
     try {
         let { id } = req.params;
-        let { route } = req.body;
+        let { route } = req.query;
+        const loginStatus = (_a = req.mdata) === null || _a === void 0 ? void 0 : _a.login;
         let data = (yield Scheme_1.default.findById(id).catch((err) => {
             console.log("get scheme info error");
         }));
+        let applied = false;
         if (!data) {
             res.json("noSchemeFound");
         }
         else {
-            let farmersApplication = (yield Farmers_1.default.findById((_a = req.user) === null || _a === void 0 ? void 0 : _a._id).populate({
-                path: "applications",
-                populate: {
-                    path: "schemeName",
-                    model: "Scheme",
-                    match: { _id: id },
-                },
-            }));
-            const applications = farmersApplication === null || farmersApplication === void 0 ? void 0 : farmersApplication.applications;
-            let applied = false;
-            if (applications) {
-                for (const application of applications) {
-                    if ((0, helperFunction_1.default)(application) &&
-                        application.schemeName != null &&
-                        application.schemeName._id.equals(id) &&
-                        application.processing === true) {
-                        applied = true;
+            if (req.isAuthenticated()) {
+                let farmersApplication = (yield Farmers_1.default.findById((_b = req.user) === null || _b === void 0 ? void 0 : _b._id).populate({
+                    path: "applications",
+                    populate: {
+                        path: "schemeName",
+                        model: "Scheme",
+                        match: { _id: id },
+                    },
+                }));
+                const applications = farmersApplication === null || farmersApplication === void 0 ? void 0 : farmersApplication.applications;
+                if (applications) {
+                    for (const application of applications) {
+                        if (helperFunction_1.default.isPopulatedApplication(application) &&
+                            application.schemeName != null &&
+                            application.schemeName._id.equals(id) &&
+                            application.processing === true) {
+                            applied = true;
+                        }
                     }
                 }
-            }
-            if (req.isAuthenticated()) {
+                const profileInfo = {
+                    adhaar: farmersApplication === null || farmersApplication === void 0 ? void 0 : farmersApplication.adhaar.number,
+                    farmersId: farmersApplication === null || farmersApplication === void 0 ? void 0 : farmersApplication.farmersId,
+                    image: farmersApplication === null || farmersApplication === void 0 ? void 0 : farmersApplication.passportSizePhoto,
+                    profileComplete: farmersApplication === null || farmersApplication === void 0 ? void 0 : farmersApplication.profileComplete,
+                };
                 res.json({
                     applied: applied,
                     schemeDetail: data,
-                    login: req.isAuthenticated(),
-                    role: (_b = req.user) === null || _b === void 0 ? void 0 : _b.role,
+                    login: loginStatus,
+                    profileInfo: profileInfo,
+                    role: (_c = req.user) === null || _c === void 0 ? void 0 : _c.role,
                 });
             }
             else {
@@ -108,7 +118,7 @@ const singleScheme = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 res.json({
                     applied: applied,
                     schemeDetail: data,
-                    login: req.isAuthenticated(),
+                    login: loginStatus,
                 });
             }
         }
@@ -142,12 +152,14 @@ const filterSchemeDetail = (req, res) => __awaiter(void 0, void 0, void 0, funct
                     role: "admin",
                     count: count,
                     schemes: schemes,
+                    login: true,
                 });
             }
             else {
                 res.json({
                     role: "farmer",
                     schemes: schemes,
+                    login: req.isAuthenticated(),
                 });
             }
         }

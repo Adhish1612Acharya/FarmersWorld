@@ -33,9 +33,7 @@ const schemes_1 = __importDefault(require("./routes/schemes"));
 const farmers_1 = __importDefault(require("./routes/farmers"));
 const admin_1 = __importDefault(require("./routes/admin"));
 const common_1 = __importDefault(require("./routes/common"));
-const port = 8080;
-const DB_URL = "mongodb+srv://Adhish:kCxYFhGcZCrzaD1u@cluster0.pndh2oh.mongodb.net/Farmersworld?retryWrites=true&w=majority&appName=Cluster0";
-//  "mongodb://127.0.0.1:27017/farmersworld";
+const DB_URL = process.env.DB_PORT || "mongodb://127.0.0.1:27017/farmersworld";
 main()
     .then(() => {
     console.log("DB connected", DB_URL);
@@ -120,8 +118,7 @@ app.use("/api/admin", admin_1.default); //admin route
 app.use("/api", common_1.default); // route to check login for auth page along with logout
 // -------------------Deployment------------------//
 const __dirname1 = path_1.default.resolve();
-console.log(process.env.NODE_ENV);
-if (process.env.NODE_ENV === undefined) {
+if (process.env.NODE_ENV === "local") {
     app.use(express_1.default.static(path_1.default.join(__dirname1, "/frontend/dist")));
     app.get("*", (req, res) => {
         res.sendFile(path_1.default.join(__dirname1, "frontend", "dist", "index.html"));
@@ -134,6 +131,7 @@ else {
 }
 // -------------------Deployment------------------//
 app.use(errorHandler_1.default);
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`Server is listening on port : ${port}`);
 });

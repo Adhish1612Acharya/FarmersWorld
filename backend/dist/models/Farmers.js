@@ -29,18 +29,44 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const passport_local_mongoose_1 = __importDefault(require("passport-local-mongoose"));
 const farmersSchema = new mongoose_1.Schema({
+    username: {
+        type: String,
+        required: true,
+        match: [/^\S+$/, "Invalid username"],
+    },
     email: {
         type: String,
         required: true,
         match: [/^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*@gmail\.com$/, "Invalid email"],
     },
     adhaar: {
-        type: Number,
-        match: [/^\d{12}$/, "Invalid adhaar"],
+        name: {
+            type: String,
+            default: "",
+        },
+        number: {
+            type: Number,
+            match: [/^\d{12}$/, "Invalid adhaar number"],
+            default: 0,
+        },
     },
     farmersId: {
         type: Number,
         match: [/^\d{12}$/, "Invalid farmersId"],
+        default: 0,
+    },
+    profilePhoto: {
+        type: String,
+        default: "",
+    },
+    passportSizePhoto: {
+        type: String,
+        default: "",
+    },
+    contactNo: {
+        type: Number,
+        match: [/^\+91[6-9]\d{9}$/, "Invalid contact number"],
+        default: 0,
     },
     applications: [
         {
@@ -48,7 +74,7 @@ const farmersSchema = new mongoose_1.Schema({
             ref: "Application",
         },
     ],
-    profile: {
+    profileComplete: {
         type: Boolean,
         default: false,
     },

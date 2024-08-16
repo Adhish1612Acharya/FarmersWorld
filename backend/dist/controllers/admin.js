@@ -88,6 +88,7 @@ const getApplicationDetails = (req, res) => __awaiter(void 0, void 0, void 0, fu
     let { applicationId } = req.params;
     let application = yield Application_1.default.findById(applicationId)
         .populate("schemeName")
+        .populate("applicant")
         .catch((err) => {
         console.log("Application not found error");
         console.log(err);
@@ -120,14 +121,17 @@ const applicationApprovement = (req, res) => __awaiter(void 0, void 0, void 0, f
         }
     }
     else if (status === "rejected") {
+        const { rejectReason } = req.body;
+        console.log("rejectReasonControoler", rejectReason);
         application = yield Application_1.default.findByIdAndUpdate(applicationId, {
             processing: false,
             approved: false,
-        }, { new: true } // This option returns the updated document
-        ).catch((err) => {
+            rejectReason: rejectReason,
+        }, { new: true }).catch((err) => {
             console.log("Application not found");
             console.log(err);
         });
+        console.log(application);
         if (!application) {
             res.json("applicationNotFound");
         }

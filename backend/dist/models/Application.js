@@ -55,6 +55,10 @@ const applicationSchema = new mongoose_1.Schema({
         type: Boolean,
         default: true,
     },
+    rejectReason: {
+        type: String,
+        default: "",
+    },
 });
 const Application = mongoose_1.default.model("Application", applicationSchema);
 exports.default = Application;

@@ -18,7 +18,6 @@ router.get("/schemes/:schemeId/applications", //route to get all applications of
 middlewares_1.UserAdminRole, (0, wrapAsync_1.default)(admin_1.default.getApplications));
 router.get("/schemes/applications/:applicationId", //route to get application details
 middlewares_1.UserAdminRole, (0, wrapAsync_1.default)(admin_1.default.getApplicationDetails));
-router.put(
 //route to approve or reject applications
-"/schemes/applications/:applicationId/:status", middlewares_1.UserAdminRole, (0, wrapAsync_1.default)(admin_1.default.applicationApprovement));
+router.put("/schemes/applications/:applicationId/:status", middlewares_1.UserAdminRole, middlewares_1.validateRejectedReason, (0, wrapAsync_1.default)(admin_1.default.applicationApprovement));
 exports.default = router;
