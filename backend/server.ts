@@ -27,7 +27,7 @@ const DB_URL = process.env.DB_PORT || "mongodb://127.0.0.1:27017/farmersworld";
 
 main()
   .then(() => {
-    console.log("DB connected", DB_URL);
+    console.log("DB connected");
   })
   .catch((err) => {
     console.log(err);

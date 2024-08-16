@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var data_1 = require("./data");
 var Scheme_1 = require("../models/Scheme");
 var mongoose_1 = require("mongoose");
-var DB_URL = "mongodb://127.0.0.1:27017/farmersworld";
+var DB_URL = "mongodb+srv://Adhish:kCxYFhGcZCrzaD1u@cluster0.pndh2oh.mongodb.net/Farmersworld?retryWrites=true&w=majority&appName=Cluster0";
 main()
     .then(function () {
     console.log(DB_URL);

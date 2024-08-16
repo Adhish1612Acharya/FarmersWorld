@@ -244,17 +244,17 @@ const UserApplications: FC = () => {
                       </a>
                     );
                   })}
-                  <FooterDiv />
                 </>
               ) : (
-                <CircularProgress style={{ position: "fixed", left: "50%" }} />
+                <CircularProgress style={{ margin: "auto" }} />
               )}
+              <FooterDiv />
             </>
           ) : (
-            <CircularProgress />
+            <CircularProgress style={{ margin: "auto" }} />
           )
         ) : (
-          <CircularProgress style={{ position: "fixed", left: "50%" }} />
+          <CircularProgress style={{ margin: "auto" }} />
         )}
       </>
     </ThemeProvider>
