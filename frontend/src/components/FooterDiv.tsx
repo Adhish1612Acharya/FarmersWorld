@@ -14,7 +14,7 @@ const FooterDiv: FC = () => {
           <FacebookIcon style={{ color: "black", marginRight: "1rem" }} />
           <LinkedInIcon style={{ color: "black", marginRight: "1rem" }} />
         </div>
-        <div className="companyName">&copy; Shopit Private Limited</div>
+        <div className="companyName">&copy; FarmersWorld Private Limited</div>
         <div className="privacyPolicies">
           <a>Privacy</a>
           <a>Terms</a>
