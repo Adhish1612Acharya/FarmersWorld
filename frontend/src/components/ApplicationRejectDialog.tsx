@@ -20,6 +20,7 @@ import {
   setError,
   setRejectDialogOpen,
 } from "../store/features/admin/ApplicationDetailSlice";
+import { LoadingButton } from "@mui/lab";
 
 const ApplicationRejectDialog: FC<applicationRejectDialogObj> = ({
   open,
@@ -28,6 +29,7 @@ const ApplicationRejectDialog: FC<applicationRejectDialogObj> = ({
   handleSubmit,
   error,
   dispatch,
+  rejectReasonLoad,
 }) => {
   return (
     <>
@@ -69,7 +71,18 @@ const ApplicationRejectDialog: FC<applicationRejectDialogObj> = ({
             />
           </DialogContent>
           <DialogActions>
-            <Button type="submit">Reject Application</Button>
+            {rejectReasonLoad ? (
+              <LoadingButton
+                size="small"
+                loading={true}
+                variant="contained"
+                disabled
+              >
+                <span>disabled</span>
+              </LoadingButton>
+            ) : (
+              <Button type="submit">Reject Application</Button>
+            )}
           </DialogActions>
         </Form>
       </Dialog>
@@ -83,13 +96,6 @@ const ApplicationRejectDialog: FC<applicationRejectDialogObj> = ({
             Please fill the reason for application rejection
           </Alert>
         </Snackbar>
-        {/* <Snackbar
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          open={error ? true : false}
-          autoHideDuration={3000}
-          message="Please fill the reason for application rejection"
-          key={"notification"}
-        /> */}
       </Box>
     </>
   );

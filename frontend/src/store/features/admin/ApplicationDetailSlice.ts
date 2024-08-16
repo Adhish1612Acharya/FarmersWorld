@@ -12,6 +12,7 @@ interface statObj {
   loading: boolean;
   rejectReason: string;
   openRejectDialog: boolean;
+  rejectReasonLoad: boolean;
   validateNotification: boolean;
   error: boolean;
 }
@@ -25,6 +26,7 @@ const initialState: statObj = {
   openRejectDialog: false,
   validateNotification: false,
   error: false,
+  rejectReasonLoad: false,
 };
 
 interface payLoad {
@@ -108,6 +110,9 @@ export const ApplicationDetailSlice = createSlice({
   name: "adminApplicationDetail",
   initialState,
   reducers: {
+    setRejectLoad: (state, action: PayloadAction<boolean>) => {
+      state.rejectReasonLoad = action.payload;
+    },
     setError: (state, action: PayloadAction<boolean>) => {
       state.error = action.payload;
     },
@@ -126,6 +131,7 @@ export const ApplicationDetailSlice = createSlice({
     builder.addCase(getApplicationDetails.fulfilled, (state, action) => {
       if (action.payload !== undefined) {
         state.applDetails = action.payload;
+        state.rejectReasonLoad = false;
         state.navLogin = true;
         state.showComponent = true;
       }
@@ -138,5 +144,5 @@ export const ApplicationDetailSlice = createSlice({
 });
 
 export default ApplicationDetailSlice.reducer;
-export const { setRejectDialogOpen, setError, setRejectReason } =
+export const { setRejectDialogOpen, setError, setRejectReason, setRejectLoad } =
   ApplicationDetailSlice.actions;

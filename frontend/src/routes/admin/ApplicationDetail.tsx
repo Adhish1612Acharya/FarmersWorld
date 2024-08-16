@@ -18,6 +18,7 @@ import {
   setRejectDialogOpen,
   setError,
   setRejectReason,
+  setRejectLoad,
 } from "../../store/features/admin/ApplicationDetailSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import theme from "../../theme";
@@ -59,6 +60,9 @@ const ApplicationDetail: FC = () => {
   const validateNotification = useAppSelector(
     (state) => state.adminApplicationDetail.validateNotification
   );
+  const rejectReasonLoad = useAppSelector(
+    (state) => state.adminApplicationDetail.rejectReasonLoad
+  );
   const error = useAppSelector((state) => state.adminApplicationDetail.error);
 
   const setTextField = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -68,6 +72,7 @@ const ApplicationDetail: FC = () => {
   const handleRejectSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (/^(?!\s*$).+/.test(rejectReason)) {
+      dispatch(setRejectLoad(true));
       dispatch(
         updateApplicationStatus({
           schemeId: schemeId,
@@ -143,7 +148,7 @@ const ApplicationDetail: FC = () => {
                   loadingPosition="start"
                   startIcon={<SaveIcon />}
                   variant="contained"
-                  style={{ margin: "1rem auto" }}
+                  style={{ margin: "5rem auto" }}
                 >
                   Processing
                 </LoadingButton>
@@ -173,6 +178,7 @@ const ApplicationDetail: FC = () => {
                 setTextField={setTextField}
                 handleSubmit={handleRejectSubmit}
                 dispatch={dispatch}
+                rejectReasonLoad={rejectReasonLoad}
               />
               <FooterDiv />
             </>

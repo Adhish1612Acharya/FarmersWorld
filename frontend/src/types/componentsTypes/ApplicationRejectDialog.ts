@@ -9,4 +9,5 @@ export interface applicationRejectDialogObj {
   handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
   error: boolean;
   dispatch: ThunkDispatch<RootState, undefined, Action>;
+  rejectReasonLoad: boolean;
 }
