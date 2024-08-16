@@ -7,6 +7,7 @@ import theme from "../theme";
 import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { deepOrange } from "@mui/material/colors";
+import FooterDiv from "./FooterDiv";
 
 const SchemeInfo: FC<schemeInfoProps> = ({ info, applied, navigate }) => {
   return (

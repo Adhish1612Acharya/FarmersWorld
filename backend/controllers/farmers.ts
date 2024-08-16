@@ -128,6 +128,9 @@ export const getFarmerApplicationDetails = async (
       .populate({
         path: "schemeName",
         select: "heading",
+      })
+      .catch((err) => {
+        console.log("Application not found error");
       });
     let schemeNameHeading: string | undefined;
     let nameInAdhaar: string | undefined;
@@ -161,7 +164,6 @@ export const getFarmerApplicationDetails = async (
       res.json(applicationDetails);
     }
   } catch (err) {
-    console.log("application not forund error");
     console.log(err);
   }
 };

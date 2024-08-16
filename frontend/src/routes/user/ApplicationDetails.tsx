@@ -18,6 +18,7 @@ import {
 import theme from "../../theme";
 import "../../styles/Table.css";
 import ShowRejectReasonDialog from "../../components/ShowRejectReasonDialog";
+import FooterDiv from "../../components/FooterDiv";
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs<any>) => {
   const { applicationId } = params as { applicationId: string };
@@ -122,6 +123,7 @@ const ApplicationDetails: FC = () => {
                 }
                 dispatch={dispatch}
               />
+              <FooterDiv />
             </>
           ) : (
             <CircularProgress />

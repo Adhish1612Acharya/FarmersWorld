@@ -12,6 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { stateBtnObj } from "../../store/features/farmer/UserApplicationSlice";
 import theme from "../../theme";
+import FooterDiv from "../../components/FooterDiv";
 
 const UserApplications: FC = () => {
   let navigate = useNavigate();
@@ -243,6 +244,7 @@ const UserApplications: FC = () => {
                       </a>
                     );
                   })}
+                  <FooterDiv />
                 </>
               ) : (
                 <CircularProgress style={{ position: "fixed", left: "50%" }} />

@@ -60,7 +60,12 @@ const ProfileUsernameBox: FC<profileUsernameBoxObj> = ({
             marginTop: "1rem",
           }}
         >
-          <Badge badgeContent={applicationStatNo.all} color="primary" showZero>
+          <Badge
+            badgeContent={applicationStatNo.all}
+            style={{ zIndex: 0 }}
+            color="primary"
+            showZero
+          >
             <Chip
               label="Total Applications"
               color="secondary"
@@ -69,6 +74,7 @@ const ProfileUsernameBox: FC<profileUsernameBoxObj> = ({
           </Badge>
 
           <Badge
+            style={{ zIndex: 0 }}
             badgeContent={applicationStatNo.approved}
             color="primary"
             showZero
@@ -81,6 +87,7 @@ const ProfileUsernameBox: FC<profileUsernameBoxObj> = ({
           </Badge>
 
           <Badge
+            style={{ zIndex: 0 }}
             badgeContent={applicationStatNo.rejected}
             color="primary"
             showZero
@@ -93,6 +100,7 @@ const ProfileUsernameBox: FC<profileUsernameBoxObj> = ({
           </Badge>
 
           <Badge
+            style={{ zIndex: 0 }}
             badgeContent={applicationStatNo.processing}
             color="primary"
             showZero

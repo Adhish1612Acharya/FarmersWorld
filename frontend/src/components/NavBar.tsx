@@ -23,6 +23,7 @@ import {
 } from "../store/features/farmer/HomeSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
+import InputIcon from "@mui/icons-material/Input";
 
 const NavBar: React.FC<navbarProps> = ({
   homePage,
@@ -41,29 +42,49 @@ const NavBar: React.FC<navbarProps> = ({
           {
             name: "All Schemes",
             to: admin ? "/admin" : "/",
+            icon: <i className="fas fa-th-list"></i>,
           },
           {
             name: "Login",
             to: "/login",
+            icon: <i className="fas fa-sign-in-alt"></i>,
           },
           {
             name: "SignUp",
             to: "/signUp",
+            icon: <i className="fas fa-user-plus"></i>,
           },
         ])
       : (pages = [
           {
             name: "All Schemes",
             to: admin ? "/admin" : "/",
+            icon: <i className="fas fa-th-list"></i>,
           },
         ]);
   }
   const settings = admin
-    ? [{ type: "Profile", to: "/admin/profile" }, { type: "Logout" }]
+    ? [
+        {
+          type: "Logout",
+          icon: <i className="fas fa-sign-out-alt"></i>,
+        },
+      ]
     : [
-        { type: "Profile", to: "/profile" },
-        { type: "Applications", to: "/schemes/applications" },
-        { type: "Logout" },
+        {
+          type: "Profile",
+          to: "/profile",
+          icon: <i className="fas fa-user-circle"></i>,
+        },
+        {
+          type: "Applications",
+          to: "/schemes/applications",
+          icon: <i className="fas fa-file-alt"></i>,
+        },
+        {
+          type: "Logout",
+          icon: <i className="fas fa-sign-out-alt"></i>,
+        },
       ];
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -128,7 +149,11 @@ const NavBar: React.FC<navbarProps> = ({
 
   return (
     <Box
-      sx={{ display: "flex", flexDirection: "column", maxWidth: "100%" }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        maxWidth: "100%",
+      }}
       className="navbar"
     >
       <AppBar
@@ -138,6 +163,9 @@ const NavBar: React.FC<navbarProps> = ({
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-evenly",
+          backgroundColor: "#ffffff",
+          color: "#1c1c1c",
+          borderBottom: "1px solid #e0e0e0",
         }}
       >
         <Container maxWidth="xl">
@@ -172,6 +200,7 @@ const NavBar: React.FC<navbarProps> = ({
                       outline: "none",
                       boxShadow: "none",
                     },
+                    color: "black",
                   }}
                 >
                   <MenuIcon />
@@ -203,8 +232,11 @@ const NavBar: React.FC<navbarProps> = ({
                         key={page.name}
                       >
                         <MenuItem key={page.name}>
-                          <Typography textAlign="center">
-                            {page.name}
+                          <Typography
+                            style={{ color: "black" }}
+                            textAlign="center"
+                          >
+                            {page.icon} &nbsp;{page.name}
                           </Typography>
                         </MenuItem>
                       </Link>
@@ -215,8 +247,11 @@ const NavBar: React.FC<navbarProps> = ({
                         key={page.name}
                       >
                         <MenuItem key={page.name}>
-                          <Typography textAlign="center">
-                            {page.name}
+                          <Typography
+                            style={{ color: "black" }}
+                            textAlign="center"
+                          >
+                            {page.icon}&nbsp; {page.name}
                           </Typography>
                         </MenuItem>
                       </Link>
@@ -235,7 +270,7 @@ const NavBar: React.FC<navbarProps> = ({
                     boxShadow: "none",
                   },
                 }}
-                alt="Remy Sharp"
+                alt=""
                 src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPJE-W8GqloneY1by63uPPTnK_6abrG1Y_hDxmBda4BUQmOB7-ejxc7za10h65n2z2D0IudXZxc205WmxmV7hZwW8YpM406qUQOkzSrqDQg1dGq4pS_8ZkI0zFzADUNZwWoL4VeRbYyStkfLe2zEZs1ob1sFtdtrEETPm1GtpaVyWpmTGu6r17mqEP8OA/s3072/InShot_20240521_002930682.jpg"
               />
 
@@ -250,7 +285,9 @@ const NavBar: React.FC<navbarProps> = ({
                   letterSpacing: ".1rem",
                   color: "inherit",
                   textDecoration: "none",
+                  cursor: "pointer",
                 }}
+                onClick={() => navigate("/")}
               >
                 FarmersWorld
               </Typography>
@@ -281,7 +318,9 @@ const NavBar: React.FC<navbarProps> = ({
                   letterSpacing: ".1rem",
                   color: "inherit",
                   textDecoration: "none",
+                  cursor: "pointer",
                 }}
+                onClick={() => navigate("/")}
               >
                 FarmersWorld
               </Typography>
@@ -318,9 +357,9 @@ const NavBar: React.FC<navbarProps> = ({
                         localStorage.setItem("filter", "");
                         dispatch(getSchemesData(navigate));
                       }}
-                      style={{ color: "white", display: "block" }}
+                      style={{ color: "black", display: "block" }}
                     >
-                      {page.name}
+                      {page.icon}&nbsp; {page.name}
                     </Link>
                   ) : (
                     <Link
@@ -329,8 +368,9 @@ const NavBar: React.FC<navbarProps> = ({
                       onClick={() => {
                         localStorage.setItem("filter", "");
                       }}
-                      style={{ color: "white", display: "block" }}
+                      style={{ color: "black", display: "block" }}
                     >
+                      {page.icon} &nbsp;
                       {page.name}
                     </Link>
                   )
@@ -380,6 +420,7 @@ const NavBar: React.FC<navbarProps> = ({
                         }}
                       >
                         <Typography textAlign="center">
+                          {setting.icon}&nbsp;
                           {setting.type}
                         </Typography>
                       </MenuItem>

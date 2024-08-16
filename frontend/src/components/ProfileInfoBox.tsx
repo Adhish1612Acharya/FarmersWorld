@@ -37,7 +37,7 @@ const ProfileInfoBox: FC<profileInfoBoxObj> = ({
           width: "75%",
           height: "max-content",
           padding: "2rem",
-          margin: "0rem 2rem",
+          margin: "0rem 2rem 1rem 2rem",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",

@@ -68,14 +68,7 @@ const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div
-        className="form"
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   justifyContent: "space-evenly",
-        // }}
-      >
+      <div className="form">
         <Form onSubmit={preventFormDefault} encType="multipart/form-data">
           <TextInput
             typeValue={"number"}
@@ -122,7 +115,12 @@ const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
           />
 
           {!submitLoad ? (
-            <Button type="submit" variant="contained" color="success">
+            <Button
+              type="submit"
+              variant="contained"
+              color="success"
+              style={{ marginBottom: "1rem" }}
+            >
               Submit
             </Button>
           ) : (
@@ -131,6 +129,7 @@ const Application: FC<ApplicationProps> = ({ schemeId, navigate }) => {
               loading={true}
               variant="contained"
               disabled
+              style={{ marginBottom: "1rem" }}
             >
               <span>disabled</span>
             </LoadingButton>

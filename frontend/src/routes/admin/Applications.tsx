@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from "../../store/store";
 import theme from "../../theme";
 import { deepOrange } from "@mui/material/colors";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import FooterDiv from "../../components/FooterDiv";
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs<any>) => {
   const { schemeId } = params as { schemeId: string };
@@ -67,6 +68,7 @@ const Applications: FC = () => {
                   height: "max-content",
                   marginTop: "6rem",
                   width: "100%",
+                  margin: "auto",
                 }}
               >
                 {applications.length === 0 ? (
@@ -88,6 +90,7 @@ const Applications: FC = () => {
                   })
                 )}
               </div>
+              <FooterDiv />
             </>
           ) : (
             <CircularProgress />

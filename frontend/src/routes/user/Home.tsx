@@ -10,6 +10,7 @@ import { getSchemesData } from "../../store/features/farmer/HomeSlice";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../../theme";
 import { handleFilterClick } from "../../store/features/farmer/HomeSlice";
+import FooterDiv from "../../components/FooterDiv";
 
 const Home: FC = () => {
   const navigate = useNavigate();
@@ -78,6 +79,7 @@ const Home: FC = () => {
                 <CircularProgress />
               )}
             </>
+            <FooterDiv />
           </>
         ) : (
           <CircularProgress />

@@ -30,6 +30,7 @@ import ProfileUsernameBox from "../../components/ProfileUsernameBox";
 import ProfileInfoBox from "../../components/ProfileInfoBox";
 import "../../styles/ProfileDetail.css";
 import PhotoDialog from "../../components/PhotoDialog";
+import FooterDiv from "../../components/FooterDiv";
 
 const Profile: FC = () => {
   const navigate = useNavigate();
@@ -200,6 +201,7 @@ const Profile: FC = () => {
               deleteProfilePhotoLoad={deleteProfilePhotoLoad}
               deleteProfilePhoto={deleteProfilePhotoFunction}
             />
+            <FooterDiv />
           </>
         ) : (
           <CircularProgress style={{ margin: "auto" }} />

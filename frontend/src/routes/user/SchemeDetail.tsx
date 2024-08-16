@@ -12,6 +12,7 @@ import { CircularProgress, ThemeProvider } from "@mui/material";
 import { getSchemeDetail } from "../../store/features/farmer/SchemeDetailSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import theme from "../../theme";
+import FooterDiv from "../../components/FooterDiv";
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs<any>) => {
   const { id } = params as { id: string };
@@ -54,10 +55,10 @@ const SchemeDetail: FC = () => {
               />
             </>
           ) : (
-            <CircularProgress />
+            <CircularProgress style={{ margin: "auto" }} />
           )
         ) : (
-          <CircularProgress />
+          <CircularProgress style={{ margin: "auto" }} />
         )}
       </>
     </ThemeProvider>

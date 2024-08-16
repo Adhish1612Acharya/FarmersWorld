@@ -12,6 +12,7 @@ import { server } from "../../server";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { getApplicationInfo } from "../../store/features/farmer/ApplySchemeSlice";
 import theme from "../../theme";
+import FooterDiv from "../../components/FooterDiv";
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs<any>) => {
   const { id } = params as { id: string };
@@ -48,10 +49,13 @@ const ApplyScheme: FC = () => {
                 homePage={false}
                 navigate={navigate}
               />
-              <h1 style={{ wordWrap: "break-word", marginTop: "64px" }}>
-                Application for : {scheme ? scheme.heading : null}
-              </h1>
-              <Application schemeId={schemeId} navigate={navigate} />
+              <div style={{ margin: "auto" }}>
+                <h1 style={{ wordWrap: "break-word", marginTop: "64px" }}>
+                  Application for : {scheme ? scheme.heading : null}
+                </h1>
+                <Application schemeId={schemeId} navigate={navigate} />
+              </div>
+              <FooterDiv />
             </>
           ) : (
             <CircularProgress />

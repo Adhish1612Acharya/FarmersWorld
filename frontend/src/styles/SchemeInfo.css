@@ -1,5 +1,7 @@
 .schemeInfo {
   margin-top: 2rem;
+  margin-right: auto;
+  margin-left: auto;
   width: 60%;
   height: max-content;
   padding: 3rem;

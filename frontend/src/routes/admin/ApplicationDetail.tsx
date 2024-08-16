@@ -22,6 +22,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import theme from "../../theme";
 import ApplicationRejectDialog from "../../components/ApplicationRejectDialog";
+import FooterDiv from "../../components/FooterDiv";
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs<any>) => {
   const { applicationId, schemeId } = params as {
@@ -173,6 +174,7 @@ const ApplicationDetail: FC = () => {
                 handleSubmit={handleRejectSubmit}
                 dispatch={dispatch}
               />
+              <FooterDiv />
             </>
           ) : (
             <CircularProgress />

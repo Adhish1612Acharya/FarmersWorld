@@ -10,6 +10,7 @@ import {
   handleFilterClick,
 } from "../../store/features/farmer/HomeSlice";
 import theme from "../../theme";
+import FooterDiv from "../../components/FooterDiv";
 
 const AdminHomePage: FC = () => {
   const navigate = useNavigate();
@@ -80,6 +81,7 @@ const AdminHomePage: FC = () => {
             ) : (
               <CircularProgress />
             )}
+            <FooterDiv />
           </>
         ) : (
           <CircularProgress />
