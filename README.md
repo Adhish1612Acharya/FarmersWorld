@@ -83,15 +83,3 @@ FarmersWorld is a user-friendly platform that enables farmers to manage and trac
 
             -Create an cloudinary account and add the required credentials for storing files in the cloudinary.
             -Add the MongoDB database URL
-
-            <div style="display: flex; gap: 20px;">
-
-      <div style="border: 2px solid #ddd; padding: 10px; text-align: center;">
-        <img src="https://img.icons8.com/color/48/000000/react-native.png" alt="React" width="48" height="48"/>
-        <p>React</p>
-      </div>
-      <div style="border: 2px solid #ddd; padding: 10px; text-align: center;">
-        <img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js" width="48" height="48"/>
-        <p>Node.js</p>
-      </div>
-    </div>
