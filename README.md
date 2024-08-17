@@ -1,8 +1,8 @@
-# H1 FarmersWorld
+# FarmersWorld
 
 FarmersWorld is a user-friendly platform that enables farmers to manage and track applications for government schemes using their Aadhaar numbers and Farmers' Unique IDs. The platform provides a seamless experience for farmers to apply for schemes, track the status of their applications, and manage their profiles. Government officials can efficiently view, process, and manage pending applications.
 
-## H2 Features
+## Features
 
 - **Application Management:**
 
@@ -34,7 +34,7 @@ FarmersWorld is a user-friendly platform that enables farmers to manage and trac
 - **Admin Features:**
   - Government officials can view and process pending applications efficiently, with the ability to provide rejection reasons directly to farmers.
 
-## H2 Technologies Used
+## Technologies Used
 
 - **Frontend:** React.js, TypeScript, Material UI, React-Redux Toolkit
 - **Backend:** Node.js, Express.js
@@ -42,18 +42,18 @@ FarmersWorld is a user-friendly platform that enables farmers to manage and trac
 - **Cloud Storage:** Cloudinary
 - **Architecture:** MVC (Model-View-Controller)
 
-## H2 Demo
+## Demo
 
-- **Visit The Live Website At:** (https://farmersworld.onrender.com)
+- **Visit The Live Website At:** https://farmersworld.onrender.com
 - **Video Demo:** [Watch Demo](https://youtu.be/ZEScscVvZ4w)
 
-## H2 Installation
+## Installation
 
-1.  ## H5 Clone the repository:
+1.  ### Clone the repository:
 
     `git clone https://github.com/Adhish1612Acharya/FarmersWorld.git`
 
-2.  ## H5 Open Two Terminals :
+2.  ### Open Two Terminals :
 
     - **First Terminal :**
       `cd frontend`
@@ -65,6 +65,6 @@ FarmersWorld is a user-friendly platform that enables farmers to manage and trac
 
       `npm start`
 
-3.  ## H5 .env file :
+3.  ### H5 .env file :
         -Create an cloudinary account and add the required credentials for storing files in the cloudinary.
         -Add the MongoDB database URL
