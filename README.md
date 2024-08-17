@@ -36,7 +36,9 @@ FarmersWorld is a user-friendly platform that enables farmers to manage and trac
 
 ## Technologies Used
 
-- **Frontend:** React.js, TypeScript, Material UI, React-Redux Toolkit
+- **Frontend:** React.js, TypeScript, Material UI, React-Redux Toolkit, <div style="border: 2px solid #ddd; padding: 10px; text-align: center;">
+  <img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript" width="48" height="48"/>
+  </div>
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
 - **Cloud Storage:** Cloudinary
@@ -72,10 +74,6 @@ FarmersWorld is a user-friendly platform that enables farmers to manage and trac
 
             <div style="display: flex; gap: 20px;">
 
-      <div style="border: 2px solid #ddd; padding: 10px; text-align: center;">
-        <img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript" width="48" height="48"/>
-        <p>JavaScript</p>
-      </div>
       <div style="border: 2px solid #ddd; padding: 10px; text-align: center;">
         <img src="https://img.icons8.com/color/48/000000/react-native.png" alt="React" width="48" height="48"/>
         <p>React</p>
