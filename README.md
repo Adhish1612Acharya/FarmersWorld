@@ -47,9 +47,13 @@ FarmersWorld is a user-friendly platform that enables farmers to manage and trac
   <img src="https://img.icons8.com/color/48/000000/cloud.png" alt="Cloudinary" />
 </p>
 
-- **Frontend:** React.js, TypeScript, Material UI, React-Redux Toolkit, <div style="border: 2px solid #ddd; padding: 10px; text-align: center;">
-  <img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript" width="48" height="48"/>
-  </div>
+- **Frontend:** React.js, TypeScript, Material UI, React-Redux Toolkit,
+<p align="center">
+  <img src="https://img.icons8.com/color/48/000000/react-native.png" alt="React.js" />
+  <img src="https://img.icons8.com/color/48/000000/typescript.png" alt="TypeScript" />
+  <img src="https://img.icons8.com/color/48/000000/material-ui.png" alt="Material UI" />
+  <img src="https://img.icons8.com/color/48/000000/redux.png" alt="Redux" />
+  </p>
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
 - **Cloud Storage:** Cloudinary
