@@ -36,27 +36,24 @@ FarmersWorld is a user-friendly platform that enables farmers to manage and trac
 
 ## Technologies Used
 
-<p align="center">
-  <img src="https://img.icons8.com/color/48/000000/react-native.png" alt="React.js" />
-  <img src="https://img.icons8.com/color/48/000000/typescript.png" alt="TypeScript" />
-  <img src="https://img.icons8.com/color/48/000000/material-ui.png" alt="Material UI" />
-  <img src="https://img.icons8.com/color/48/000000/redux.png" alt="Redux" />
-  <img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js" />
-  <img src="https://img.icons8.com/color/48/000000/express.png" alt="Express.js" />
-  <img src="https://img.icons8.com/color/48/000000/mongodb.png" alt="MongoDB" />
-  <img src="https://img.icons8.com/color/48/000000/cloud.png" alt="Cloudinary" />
-</p>
-
 - **Frontend:** React.js, TypeScript, Material UI, React-Redux Toolkit,
 <p align="center">
-  <img src="https://img.icons8.com/color/48/000000/react-native.png" alt="React.js" />
-  <img src="https://img.icons8.com/color/48/000000/typescript.png" alt="TypeScript" />
-  <img src="https://img.icons8.com/color/48/000000/material-ui.png" alt="Material UI" />
-  <img src="https://img.icons8.com/color/48/000000/redux.png" alt="Redux" />
+  <img style="margin:1rem; border:10px solid orange" src="https://img.icons8.com/color/48/000000/react-native.png" alt="React.js" />
+  <img style="margin:1rem;" src="https://img.icons8.com/color/48/000000/typescript.png" alt="TypeScript" />
+  <img style="margin:1rem;" src="https://img.icons8.com/color/48/000000/material-ui.png" alt="Material UI" />
+  <img style="margin:1rem;" src="https://img.icons8.com/color/48/000000/redux.png" alt="Redux" />
   </p>
+
 - **Backend:** Node.js, Express.js
+<p align="center"> <img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js" />
+<img src="https://img.icons8.com/color/48/000000/express.png" alt="Express.js" />
+</p>
+
 - **Database:** MongoDB
+<p align="center"><img src="https://img.icons8.com/color/48/000000/mongodb.png" alt="MongoDB" /></p>
+
 - **Cloud Storage:** Cloudinary
+
 - **Architecture:** MVC (Model-View-Controller)
 
 ## Demo
