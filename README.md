@@ -65,6 +65,6 @@ FarmersWorld is a user-friendly platform that enables farmers to manage and trac
 
       `npm start`
 
-3.  ### H5 .env file :
+3.  ### .env file :
         -Create an cloudinary account and add the required credentials for storing files in the cloudinary.
         -Add the MongoDB database URL
