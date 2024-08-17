@@ -38,7 +38,7 @@ FarmersWorld is a user-friendly platform that enables farmers to manage and trac
 
 - **Frontend:** React.js, TypeScript, Material UI, React-Redux Toolkit,
 <p align="center">
-  <img style="margin:1rem; border:10px solid orange" src="https://img.icons8.com/color/48/000000/react-native.png" alt="React.js" />
+  <img style="margin:1rem;" src="https://img.icons8.com/color/48/000000/react-native.png" alt="React.js" />
   <img style="margin:1rem;" src="https://img.icons8.com/color/48/000000/typescript.png" alt="TypeScript" />
   <img style="margin:1rem;" src="https://img.icons8.com/color/48/000000/material-ui.png" alt="Material UI" />
   <img style="margin:1rem;" src="https://img.icons8.com/color/48/000000/redux.png" alt="Redux" />
