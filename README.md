@@ -1,26 +1,70 @@
-Inspiration
-During a college project field visit, I met farmers who shared their struggles with government schemes. They were unaware of available schemes, faced issues with ghosted applications, and had difficulty tracking their application statuses. They also mentioned the complexity and redundancy in applying for schemes.
+# H1 FarmersWorld
 
-What it does
-FarmersWorld offers a user-friendly platform for farmers to manage their applications for government schemes. By using Aadhaar numbers, Farmers' Unique IDs, and passport-sized photos, farmers can easily apply for schemes. The platform verifies their credentials, tracks application statuses, and prevents duplicate applications. Government officials can also use the site to view and process pending applications efficiently.
+FarmersWorld is a user-friendly platform that enables farmers to manage and track applications for government schemes using their Aadhaar numbers and Farmers' Unique IDs. The platform provides a seamless experience for farmers to apply for schemes, track the status of their applications, and manage their profiles. Government officials can efficiently view, process, and manage pending applications.
 
-How I built it
-I built FarmersWorld using the MERN stack with TypeScript and Material UI for a seamless user experience. The project leverages React-Redux Toolkit and MVC architecture for code readability and maintainability. Also used cloudinary for secure storage of images.
+## H2 Features
 
-Challenges I ran into
-One major challenge was optimizing the logic for tracking applications and providing accurate data. Ensuring a user-friendly UI/UX while maintaining efficient backend processes was another significant hurdle.
+- **Application Management:**
 
-Accomplishments that I am proud of
-We successfully implemented complex logic for application tracking, prevented duplicate applications, and ensured secure authorization for both farmers and admins.
+  - Farmers can easily apply for government schemes by providing their details once. Subsequent applications can be filled in just two clicks.
+  - Farmers can view all their applied applications, including detailed information and current application status.
+  - Application status tracking is available, including reasons for rejection provided by government officials.
+  - Application status filter allows farmers to find specific applications based on their status (e.g., Pending, Approved, Rejected). The status filter is tracked for easier navigation between the current and previous pages with the applied filters.
+  - Prevention of duplicate applications ensures farmers can only submit one application per scheme.
 
-What I learned
-I learned to develop complex logic with optimal time complexity and maintain a large codebase efficiently
+- **Scheme Search:**
 
-What's next for FarmersWorld
-Next, plan is to add a review and complaint system for each scheme, allowing farmers to make informed decisions and connect with others facing similar issues. This feature aims to foster a supportive community among farmers.
+  - Farmers can search for available schemes based on filters to quickly find the most relevant options.
 
-Demo Video Link : https://www.youtube.com/watch?v=ZEScscVvZ4w
+- **Profile Management:**
 
-Built With
-cloudinary express.js materialui mongodb node.js react react-redux-toolkit render typescript
-Try it out: https://farmersworld.onrender.com
+  - Farmers can change their profile photo and view the number of applications they have submitted.
+  - The profile page displays the number of applications based on their status (e.g., Pending, Approved, Rejected).
+  - Farmers can view and edit their details from their profile page, enabling easy application to schemes.
+
+- **Authentication & Authorization:**
+
+  - **_Passport.js_** is used for authentication, ensuring secure login and user management.
+  - Role-based authorization security has been set up to restrict access based on user roles (e.g., Farmer, Admin). Only authorized users can access specific functionalities and data.
+
+- **Cloud Storage:**
+
+  - Integration with Cloudinary for storing profile photos and other images, providing easier access and management.
+
+- **Admin Features:**
+  - Government officials can view and process pending applications efficiently, with the ability to provide rejection reasons directly to farmers.
+
+## H2 Technologies Used
+
+- **Frontend:** React.js, TypeScript, Material UI, React-Redux Toolkit
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB
+- **Cloud Storage:** Cloudinary
+- **Architecture:** MVC (Model-View-Controller)
+
+## H2 Demo
+
+- **Visit The Live Website At:** (https://farmersworld.onrender.com)
+- **Video Demo:** [Watch Demo](https://youtu.be/ZEScscVvZ4w)
+
+## H2 Installation
+
+1.  ## H5 Clone the repository:
+
+    `git clone https://github.com/Adhish1612Acharya/FarmersWorld.git`
+
+2.  ## H5 Open Two Terminals :
+
+    - **First Terminal :**
+      `cd frontend`
+
+      `npm run dev`
+
+    - **Second Terminal :**
+      `cd backend`
+
+      `npm start`
+
+3.  ## H5 .env file :
+        -Create an cloudinary account and add the required credentials for storing files in the cloudinary.
+        -Add the MongoDB database URL
