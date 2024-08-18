@@ -11,7 +11,13 @@ import { deepOrange } from "@mui/material/colors";
 const SchemeInfo: FC<schemeInfoProps> = ({ info, applied, navigate }) => {
   return (
     <ThemeProvider theme={theme}>
-      <>
+      <div
+        style={{
+          width: "100%",
+          height: "max-content",
+          backgroundColor: "white",
+        }}
+      >
         <Paper className="schemeInfo" elevation={8}>
           <div className="infoHeader">
             <Link to="/" style={{ color: "black" }}>
@@ -63,7 +69,7 @@ const SchemeInfo: FC<schemeInfoProps> = ({ info, applied, navigate }) => {
             <p>{info?.description}</p>
           </div>
         </Paper>
-      </>
+      </div>
     </ThemeProvider>
   );
 };
