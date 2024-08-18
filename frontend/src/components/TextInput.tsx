@@ -24,7 +24,10 @@ const TextInput: FC<textInputStatProps> = ({
   return (
     <ThemeProvider theme={theme}>
       <div className="textField">
-        <label htmlFor={name} style={{ margin: "1rem", fontWeight: "bolder" }}>
+        <label
+          htmlFor={name}
+          style={{ margin: "1rem", fontWeight: "bolder", color: "black" }}
+        >
           {outerLabel}
         </label>
         <TextField

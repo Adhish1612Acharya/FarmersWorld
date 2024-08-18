@@ -47,7 +47,13 @@ const SchemeDetail: FC = () => {
                 admin={false}
                 navigate={navigate}
               />
-              <div style={{ width: "100%", backgroundColor: "white" }}>
+              <div
+                style={{
+                  width: "100%",
+                  height: "max-content",
+                  backgroundColor: "white",
+                }}
+              >
                 <SchemeInfo
                   info={schemeInfo}
                   applied={applied}
