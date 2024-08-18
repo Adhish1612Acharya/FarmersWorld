@@ -56,6 +56,7 @@ const Home: FC = () => {
                     marginTop: "8rem",
                     display: "flex",
                     flexDirection: "column",
+                    backgroundColor: "white",
                   }}
                 >
                   {schemes?.map((scheme: schemeObj) => {

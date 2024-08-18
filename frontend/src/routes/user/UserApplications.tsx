@@ -216,7 +216,13 @@ const UserApplications: FC = () => {
                   </div>
 
                   {applications?.length === 0 ? (
-                    <h1 style={{ wordWrap: "break-word", maxWidth: "100%" }}>
+                    <h1
+                      style={{
+                        wordWrap: "break-word",
+                        maxWidth: "100%",
+                        color: "black",
+                      }}
+                    >
                       NO APPLICATIONS{" "}
                       {applicationType === "processing"
                         ? "UNDER PROCESSING"
@@ -225,25 +231,29 @@ const UserApplications: FC = () => {
                         : applicationType.toUpperCase()}
                     </h1>
                   ) : null}
-                  {applications.map((application, index) => {
-                    return (
-                      <a
-                        href={`/schemes/applications/${application._id}`}
-                        key={application._id}
-                        style={{ textDecoration: "none" }}
-                      >
-                        <SchemeCard
+                  <div style={{ width: "100%", backgroundColor: "white" }}>
+                    {applications.map((application, index) => {
+                      return (
+                        <a
+                          href={`/schemes/applications/${application._id}`}
                           key={application._id}
-                          scheme={application.schemeName}
-                          isApplication={true}
-                          home={false}
-                          statBtn={
-                            Array.isArray(statBtns) ? statBtns[index] : statBtns
-                          }
-                        />
-                      </a>
-                    );
-                  })}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <SchemeCard
+                            key={application._id}
+                            scheme={application.schemeName}
+                            isApplication={true}
+                            home={false}
+                            statBtn={
+                              Array.isArray(statBtns)
+                                ? statBtns[index]
+                                : statBtns
+                            }
+                          />
+                        </a>
+                      );
+                    })}
+                  </div>
                 </>
               ) : (
                 <CircularProgress style={{ margin: "auto" }} />

@@ -1,18 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import NavBar from "../../components/NavBar";
 import { useNavigate } from "react-router-dom";
-import ProfileForm from "../../components/ProfileForm";
-import {
-  Alert,
-  Avatar,
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  CssBaseline,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import "../../styles/Profile.css";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import {

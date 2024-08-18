@@ -47,12 +47,13 @@ const SchemeDetail: FC = () => {
                 admin={false}
                 navigate={navigate}
               />
-
-              <SchemeInfo
-                info={schemeInfo}
-                applied={applied}
-                navigate={navigate}
-              />
+              <div style={{ width: "100%", backgroundColor: "white" }}>
+                <SchemeInfo
+                  info={schemeInfo}
+                  applied={applied}
+                  navigate={navigate}
+                />
+              </div>
             </>
           ) : (
             <CircularProgress style={{ margin: "auto" }} />

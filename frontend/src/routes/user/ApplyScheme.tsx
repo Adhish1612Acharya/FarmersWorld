@@ -49,8 +49,14 @@ const ApplyScheme: FC = () => {
                 homePage={false}
                 navigate={navigate}
               />
-              <div style={{ margin: "auto" }}>
-                <h1 style={{ wordWrap: "break-word", marginTop: "64px" }}>
+              <div style={{ margin: "auto", backgroundColor: "white" }}>
+                <h1
+                  style={{
+                    wordWrap: "break-word",
+                    marginTop: "64px",
+                    color: "black",
+                  }}
+                >
                   Application for : {scheme ? scheme.heading : null}
                 </h1>
                 <Application schemeId={schemeId} navigate={navigate} />

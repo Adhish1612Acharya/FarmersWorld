@@ -5,6 +5,7 @@
   flex-direction: row;
   justify-content: space-evenly;
   margin-bottom: 1rem;
+  background-color: white !important;
 }
 
 .profileUsernameBox {

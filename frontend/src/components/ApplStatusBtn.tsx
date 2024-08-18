@@ -7,7 +7,9 @@ const ApplStatusBtn: FC<appliStatusProps> = ({ color, status, ht, admin }) => {
   return (
     <ThemeProvider theme={theme}>
       {!admin ? (
-        <h3 style={{ display: "inline-block" }}>Application Status :&nbsp;</h3>
+        <h3 style={{ display: "inline-block", color: "black" }}>
+          Application Status :&nbsp;
+        </h3>
       ) : null}
 
       <Paper

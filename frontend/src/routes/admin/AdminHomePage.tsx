@@ -57,6 +57,7 @@ const AdminHomePage: FC = () => {
                   marginTop: "8rem",
                   display: "flex",
                   flexDirection: "column",
+                  backgroundColor: "white",
                 }}
               >
                 {schemes.map((scheme, index) => {

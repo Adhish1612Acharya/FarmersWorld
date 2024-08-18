@@ -53,7 +53,7 @@ const Applications: FC = () => {
                 admin={true}
                 navigate={navigate}
               />
-              <h1 style={{ marginTop: "4rem" }}>{heading}</h1>
+              <h1 style={{ marginTop: "4rem", color: "black" }}>{heading}</h1>
               <Link to="/admin" style={{ color: "black" }}>
                 <Avatar
                   sx={{ bgcolor: deepOrange[500] }}
@@ -69,6 +69,7 @@ const Applications: FC = () => {
                   marginTop: "6rem",
                   width: "100%",
                   margin: "auto",
+                  backgroundColor: "white",
                 }}
               >
                 {applications.length === 0 ? (
