@@ -44,21 +44,31 @@ const ErrorPage: FC = () => {
       <>
         {showComponent ? (
           !logoutLoad ? (
-            <div className="errorPage">
+            <>
               <NavBar
                 login={navLogin}
                 admin={admin}
                 homePage={home == "/" ? true : false}
                 navigate={navigate}
               />
-              <Alert severity="error" style={{ width: "50%", margin: "auto" }}>
-                {" "}
-                <h1>Oops there was an error</h1>
-              </Alert>
-              <p>
-                <b>`{errMsg}`</b>
-              </p>
-            </div>
+              <div
+                className="errorPage"
+                style={{ margin: "auto", width: "50%" }}
+              >
+                <Alert
+                  severity="error"
+                  style={{
+                    width: "100%",
+                  }}
+                >
+                  {" "}
+                  <h1>Oops there was an error</h1>
+                </Alert>
+                <p>
+                  <b>`{errMsg}`</b>
+                </p>
+              </div>
+            </>
           ) : (
             <CircularProgress />
           )
