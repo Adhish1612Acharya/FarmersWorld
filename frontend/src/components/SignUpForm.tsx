@@ -213,7 +213,6 @@ const SignUpForm: FC<signUpFormProps> = ({ route }) => {
                 value={value.email}
                 error={!error.email.valid}
                 helperText={error.email.errMsg}
-                autoFocus
               />
               <TextField
                 margin="normal"

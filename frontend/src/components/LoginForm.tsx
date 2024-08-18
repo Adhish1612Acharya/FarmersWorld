@@ -186,9 +186,9 @@ const LoginForm: FC<loginFormProps> = ({ route }) => {
                 required
                 fullWidth
                 id="username"
-                label="Email Address"
+                label="Username"
                 name="username"
-                autoComplete="email"
+                autoComplete="username"
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   setInputData(event)
                 }
