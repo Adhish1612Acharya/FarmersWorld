@@ -67,7 +67,7 @@ app.use(bodyParser.json());
 app.use(session(sessionOptions));
 
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: ["http://localhost:5173","https://farmerworld.netlify.app"],
   methods: ["GET", "PUT", "PATCH", "POST", "DELETE"],
   credentials: true,
 };
